@@ -211,7 +211,7 @@ public class SanPhamChiTietRepository {
         return lists;
     }
 
-    public ArrayList<SanPhamChiTietRespone> locTheoDieuKien(String tenChatLieu, String tenXuatXu, String tenThuongHieu, String tenTinhLinhHoat) {
+    public ArrayList<SanPhamChiTietRespone> locTheoDieuKien(String tenChatLieu, String tenXuatXu, String tenThuongHieu, boolean sapXepGiaBan) {
 
         String sql = "SELECT  dbo.SanPhamChiTiet.id,  \n"
                 + "		dbo.SanPhamChiTiet.ma_san_pham_chi_tiet, \n"
@@ -240,14 +240,17 @@ public class SanPhamChiTietRepository {
                 + "WHERE dbo.ChatLieu.ten_chat_lieu like ?\n"
                 + "AND dbo.XuatXu.ten_nuoc like ?\n"
                 + "AND dbo.ThuongHieu.ten_thuong_hieu like ?\n"
-                + "AND dbo.TinhLinhHoat.ten_tinh_linh_hoat like ?";
+                + "ORDER BY\n"
+                + "CASE WHEN ? = 0 THEN gia_ban END ASC,\n"
+                + "CASE WHEN ? = 1 THEN gia_ban END DESC";
 
         ArrayList<SanPhamChiTietRespone> lists = new ArrayList<>();
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, tenChatLieu);
             ps.setObject(2, tenXuatXu);
             ps.setObject(3, tenThuongHieu);
-            ps.setObject(4, tenTinhLinhHoat);
+            ps.setObject(4, sapXepGiaBan ? "0" : "1");
+            ps.setObject(5, sapXepGiaBan ? "0" : "1");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 lists.add(new SanPhamChiTietRespone(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),

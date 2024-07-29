@@ -1042,7 +1042,7 @@
                           <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
                           <Component id="btn_ThemMoiSPCT3" min="-2" pref="118" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btn_Quet_QR3" min="-2" pref="122" max="-2" attributes="0"/>
+                          <Component id="btn_Quet_QR" min="-2" pref="122" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
                           <Component id="btn_LamMoiSPCT3" min="-2" pref="106" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="243" max="-2" attributes="0"/>
@@ -1109,9 +1109,9 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btn_ThemMoiSPCT3" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btn_LamMoiSPCT3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btn_Quet_QR3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_Quet_QR" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="36" max="32767" attributes="0"/>
+                          <EmptySpace pref="34" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btn_XuatExcelSPCT" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="cbb_LocTheoGia" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1213,31 +1213,24 @@
                               <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                               <Component id="cbb_LocThuongHieu" min="-2" pref="159" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-                              <Component id="cbb_LocTinhLinhHoat" min="-2" pref="150" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
                               <Component id="cbb_LocXuatXu" min="-2" pref="153" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="21" max="32767" attributes="0"/>
+                              <EmptySpace pref="83" max="32767" attributes="0"/>
+                              <Component id="cbb_LocGia" min="-2" pref="150" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="cbb_LocChatLieu" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="cbb_LocThuongHieu" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="cbb_LocTinhLinhHoat" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                      <Component id="cbb_LocXuatXu" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="cbb_LocChatLieu" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbb_LocThuongHieu" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbb_LocXuatXu" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbb_LocGia" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="46" max="32767" attributes="0"/>
+                              <EmptySpace pref="48" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1268,12 +1261,15 @@
                         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbb_LocChatLieuItemStateChanged"/>
                       </Events>
                     </Component>
-                    <Component class="com.Product.GUI.Combobox" name="cbb_LocTinhLinhHoat">
+                    <Component class="com.Product.GUI.Combobox" name="cbb_LocGia">
                       <Properties>
-                        <Property name="labeText" type="java.lang.String" value="Phong C&#xe1;ch"/>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                          <StringArray count="0"/>
+                        </Property>
+                        <Property name="labeText" type="java.lang.String" value="Gi&#xe1; b&#xe1;n"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbb_LocTinhLinhHoatItemStateChanged"/>
+                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbb_LocGiaItemStateChanged"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -1304,7 +1300,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ThemMoiSPCT3ActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="com.Product.swing.ButtonBadges" name="btn_Quet_QR3">
+                <Component class="com.Product.swing.ButtonBadges" name="btn_Quet_QR">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="ff" red="ff" type="rgb"/>
@@ -1317,6 +1313,9 @@
                       <Font name="Segoe UI" size="12" style="1"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_Quet_QRActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="com.Product.swing.ButtonBadges" name="btn_LamMoiSPCT3">
                   <Properties>

@@ -718,31 +718,31 @@ public class HoaDonForm extends javax.swing.JPanel {
         });
     }//GEN-LAST:event_QRActionPerformed
 
-    private ArrayList<HoaDonResponse> timKiemHoaDon(String resultQR) {
-        HoaDonRepository hdRepo = new HoaDonRepository();
-        ArrayList<HoaDonResponse> list = new ArrayList<>();
-
-        System.out.println("Chức năng tìm kiếm hóa đơn");
-
-        if (resultQR == null || resultQR.trim().isEmpty()) {
-            System.out.println("Không có mã QR được cung cấp");
-        } else {
-            HoaDonResponse hoaDon = hdRepo.timKiemHoaDonResponsebyQR(resultQR.trim());
-            if (hoaDon != null) {
-                list.add(hoaDon);
-                System.out.println("Hóa đơn được tìm thấy: " + hoaDon.getMaHoaDon());
-            } else {
-                System.out.println("Không tìm thấy hóa đơn với mã QR: " + resultQR);
-            }
-
-            // Hiển thị dữ liệu trên giao diện
-            System.out.println(list);
-            showDataTableV2(list);
-        }
-
-        return list;
-    }
-    
+//    private ArrayList<HoaDonResponse> timKiemHoaDon(String resultQR) {
+//        HoaDonRepository hdRepo = new HoaDonRepository();
+//        ArrayList<HoaDonResponse> list = new ArrayList<>();
+//
+//        System.out.println("Chức năng tìm kiếm hóa đơn");
+//
+//        if (resultQR == null || resultQR.trim().isEmpty()) {
+//            System.out.println("Không có mã QR được cung cấp");
+//        } else {
+//            HoaDonResponse hoaDon = hdRepo.timKiemHoaDonResponsebyQR(resultQR.trim());
+//            if (hoaDon != null) {
+//                list.add(hoaDon);
+//                System.out.println("Hóa đơn được tìm thấy: " + hoaDon.getMaHoaDon());
+//            } else {
+//                System.out.println("Không tìm thấy hóa đơn với mã QR: " + resultQR);
+//            }
+//
+//            // Hiển thị dữ liệu trên giao diện
+//            System.out.println(list);
+//            showDataTableV2(list);
+//        }
+//
+//        return list;
+//    }
+//    
     private HoaDonResponse getHoaDonResponse(String resultQR) {
         HoaDonRepository hdRepo = new HoaDonRepository();
 

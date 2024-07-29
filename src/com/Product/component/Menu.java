@@ -12,6 +12,7 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.WindowAdapter;
 import javax.swing.ImageIcon;
 import net.miginfocom.swing.MigLayout;
 
@@ -158,4 +159,6 @@ public class Menu extends javax.swing.JPanel {
     private com.Product.component.Profile profile1;
     private javax.swing.JScrollPane sp;
     // End of variables declaration//GEN-END:variables
+
+    
 }
