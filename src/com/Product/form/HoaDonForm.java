@@ -697,7 +697,7 @@ public class HoaDonForm extends javax.swing.JPanel {
 
     private void QRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QRActionPerformed
         // TODO add your handling code here:
-        Menu menu = new Menu();
+        Menu menu = new Menu(1);
         menu.setVisible(true);
         menu.addWindowListener(new WindowAdapter() {
             @Override

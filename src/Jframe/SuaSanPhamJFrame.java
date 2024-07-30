@@ -29,35 +29,35 @@ public class SuaSanPhamJFrame extends javax.swing.JFrame {
 
     private SanPham getFormData() {
         // Kiểm tra tên sản phẩm
-    String tenSanPham = txt_TenSanPham.getText().trim();
-      String moTaSanPham = txt_MoTaSanPham.getText().trim();
-      tenSanPham = tenSanPham.split(" ")[0];
-      moTaSanPham = moTaSanPham.split(" ")[0];
+        String tenSanPham = txt_TenSanPham.getText().trim();
+        String moTaSanPham = txt_MoTaSanPham.getText().trim();
+        tenSanPham = tenSanPham.split(" ")[0];
+        moTaSanPham = moTaSanPham.split(" ")[0];
 
-    if (tenSanPham.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Bạn chưa nhập tên sản phẩm", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
-        return null;
-    }
+        if (tenSanPham.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa nhập tên sản phẩm", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
 
-    if (tenSanPham.length() > 20) {
-        JOptionPane.showMessageDialog(null, "Tên sản phẩm không được vượt quá 20 ký tự", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
-        return null;
-    }
+        if (tenSanPham.length() > 20) {
+            JOptionPane.showMessageDialog(null, "Tên sản phẩm không được vượt quá 20 ký tự", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
 
-    if (!tenSanPham.matches("[a-zA-Z\\s]+")) {
-        JOptionPane.showMessageDialog(null, "Tên sản phẩm không được chứa ký tự đặc biệt hoặc số", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
-        return null;
-    }
+        if (!tenSanPham.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(null, "Tên sản phẩm không được chứa ký tự đặc biệt hoặc số", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
 
-    // Cắt chuỗi tên sản phẩm nếu cần thiết (đảm bảo không vượt quá 20 ký tự)
-    if (tenSanPham.length() > 20) {
-        tenSanPham = tenSanPham.substring(0, 20);
-    }
-    
-    if (moTaSanPham.length() > 30) {
-        JOptionPane.showMessageDialog(null, "Mô tả sản phẩm không được vượt quá 30 ký tự", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
-        moTaSanPham = moTaSanPham.substring(0, 30);
-    }
+        // Cắt chuỗi tên sản phẩm nếu cần thiết (đảm bảo không vượt quá 20 ký tự)
+        if (tenSanPham.length() > 20) {
+            tenSanPham = tenSanPham.substring(0, 20);
+        }
+
+        if (moTaSanPham.length() > 30) {
+            JOptionPane.showMessageDialog(null, "Mô tả sản phẩm không được vượt quá 30 ký tự", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            moTaSanPham = moTaSanPham.substring(0, 30);
+        }
 
         SanPham sp = SanPham.builder()
                 .maSanPham(txt_MaSanPham.getText())
@@ -176,15 +176,22 @@ public class SuaSanPhamJFrame extends javax.swing.JFrame {
         if (newSanPham == null) {
             return;
         }
-        if (newSanPham != null) {
+
+// Hiển thị hộp thoại xác nhận
+        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn cập nhật sản phẩm này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
             if (repo.update(newSanPham, id_sp)) {
                 JOptionPane.showMessageDialog(null, "Cập nhật thành công!!!");
-                this.dispose();
-            }else{
+                this.dispose(); // Đóng cửa sổ hiện tại
+            } else {
                 JOptionPane.showMessageDialog(null, "Cập nhật thất bại!!!");
-                this.dispose();
+                this.dispose(); // Đóng cửa sổ hiện tại
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Cập nhật đã bị hủy");
+            this.dispose(); // Đóng cửa sổ hiện tại nếu người dùng chọn NO
         }
+
     }//GEN-LAST:event_btn_CapNhatActionPerformed
 
     /**

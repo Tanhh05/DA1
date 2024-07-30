@@ -149,15 +149,10 @@ public class ListSanPhamChiTiet extends javax.swing.JFrame {
             System.out.println("ma: " + maSanPhamChiTiet);
 
             if (maSanPhamChiTiet != null && !maSanPhamChiTiet.isEmpty()) {
-//            SanPhamChiTietRespone sp = sanPhamChiTietRepository.getSanPhamChiTietByMaSPCT(maSanPhamChiTiet);
-//            if (sp != null) {
-                // Tạo và hiển thị ThongTinSPJFrame với thông tin sản phẩm
+
                 ThongTinSPJFrame detailsFrame = new ThongTinSPJFrame();
                 detailsFrame.setVisible(true);
-//            } else {
-//                // Hiển thị thông báo lỗi và không mở cửa sổ chi tiết
-//                JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin sản phẩm!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-//            }
+
             } else {
                 // Hiển thị thông báo lỗi nếu mã sản phẩm không hợp lệ
                 JOptionPane.showMessageDialog(this, "Mã sản phẩm không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);

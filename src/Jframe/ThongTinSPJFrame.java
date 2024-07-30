@@ -21,7 +21,8 @@ public class ThongTinSPJFrame extends javax.swing.JFrame {
     private SanPhamChiTietRespone sp;
 
     SanPhamChiTietRepository spctRepo = new SanPhamChiTietRepository();
-    String maTam = ListSanPhamChiTiet.maSanPhamChiTiet;
+    String maTam = ListSanPhamChiTiet.maSanPhamChiTiet = SanPhamForm.maSanPhamChiTiet;
+     
     
     /**
      * Creates new form ThongTinSPJFrame

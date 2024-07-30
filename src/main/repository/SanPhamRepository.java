@@ -36,7 +36,9 @@ public class SanPhamRepository {
                 + "        SanPhamChiTiet\n"
                 + "    GROUP BY \n"
                 + "        id_san_pham\n"
-                + ") ct ON sp.id = ct.id_san_pham;";
+                + ") ct ON sp.id = ct.id_san_pham\n"
+                + "WHERE \n"
+                + "    sp.trang_thai_ban = 1";
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -58,16 +60,28 @@ public class SanPhamRepository {
 
     public ArrayList<SanPham> getSanPhamDangBan() {
         ArrayList<SanPham> list = new ArrayList<>();
-        String sql = "SELECT sp.id, sp.ma_san_pham, sp.ten_san_pham, sp.mo_ta, "
-                + "COALESCE(ct.tong_so_luong_ton, 0) AS so_luong, "
-                + "sp.trang_thai, sp.ngay_tao "
-                + "FROM SanPham sp "
-                + "LEFT JOIN ( "
-                + "    SELECT id_san_pham, SUM(so_luong_ton) AS tong_so_luong_ton "
-                + "    FROM SanPhamChiTiet "
-                + "    GROUP BY id_san_pham "
-                + ") ct ON sp.id = ct.id_san_pham "
-                + "WHERE sp.trang_thai = 1"; // Lọc sản phẩm đang bán
+        String sql = "SELECT \n"
+                + "    sp.id,\n"
+                + "    sp.ma_san_pham,\n"
+                + "    sp.ten_san_pham,\n"
+                + "    sp.mo_ta,\n"
+                + "    COALESCE(ct.tong_so_luong_ton, 0) AS so_luong,\n"
+                + "    sp.trang_thai,\n"
+                + "    sp.ngay_tao\n"
+                + "FROM \n"
+                + "    SanPham sp\n"
+                + "LEFT JOIN (\n"
+                + "    SELECT \n"
+                + "        id_san_pham,\n"
+                + "        SUM(so_luong_ton) AS tong_so_luong_ton\n"
+                + "    FROM \n"
+                + "        SanPhamChiTiet\n"
+                + "    GROUP BY \n"
+                + "        id_san_pham\n"
+                + ") ct ON sp.id = ct.id_san_pham\n"
+                + "WHERE \n"
+                + "    sp.trang_thai = 1\n"
+                + "    AND sp.trang_thai_ban = 1;"; // Lọc sản phẩm đang bán
 
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
@@ -91,16 +105,28 @@ public class SanPhamRepository {
 
     public ArrayList<SanPham> getSanPhamNgungBan() {
         ArrayList<SanPham> list = new ArrayList<>();
-        String sql = "SELECT sp.id, sp.ma_san_pham, sp.ten_san_pham, sp.mo_ta, "
-                + "COALESCE(ct.tong_so_luong_ton, 0) AS so_luong, "
-                + "sp.trang_thai, sp.ngay_tao "
-                + "FROM SanPham sp "
-                + "LEFT JOIN ( "
-                + "    SELECT id_san_pham, SUM(so_luong_ton) AS tong_so_luong_ton "
-                + "    FROM SanPhamChiTiet "
-                + "    GROUP BY id_san_pham "
-                + ") ct ON sp.id = ct.id_san_pham "
-                + "WHERE sp.trang_thai = 0"; // Lọc sản phẩm ngừng bán
+        String sql = "SELECT \n"
+                + "    sp.id,\n"
+                + "    sp.ma_san_pham,\n"
+                + "    sp.ten_san_pham,\n"
+                + "    sp.mo_ta,\n"
+                + "    COALESCE(ct.tong_so_luong_ton, 0) AS so_luong,\n"
+                + "    sp.trang_thai,\n"
+                + "    sp.ngay_tao\n"
+                + "FROM \n"
+                + "    SanPham sp\n"
+                + "LEFT JOIN (\n"
+                + "    SELECT \n"
+                + "        id_san_pham,\n"
+                + "        SUM(so_luong_ton) AS tong_so_luong_ton\n"
+                + "    FROM \n"
+                + "        SanPhamChiTiet\n"
+                + "    GROUP BY \n"
+                + "        id_san_pham\n"
+                + ") ct ON sp.id = ct.id_san_pham\n"
+                + "WHERE \n"
+                + "    sp.trang_thai = 0 \n"
+                + "    AND sp.trang_thai_ban = 1;"; // Lọc sản phẩm ngừng bán
 
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
@@ -146,7 +172,7 @@ public class SanPhamRepository {
                 + "    sp.ma_san_pham,\n"
                 + "    sp.ten_san_pham,\n"
                 + "    sp.mo_ta,\n"
-                + "    COALESCE(ct.total_so_luong_ton, 0) AS so_luong,\n"
+                + "    COALESCE(ct.tong_so_luong_ton, 0) AS so_luong,\n"
                 + "    sp.trang_thai,\n"
                 + "    sp.ngay_tao\n"
                 + "FROM \n"
@@ -154,13 +180,16 @@ public class SanPhamRepository {
                 + "LEFT JOIN (\n"
                 + "    SELECT \n"
                 + "        id_san_pham,\n"
-                + "        SUM(so_luong_ton) AS total_so_luong_ton\n"
+                + "        SUM(so_luong_ton) AS tong_so_luong_ton\n"
                 + "    FROM \n"
                 + "        SanPhamChiTiet\n"
                 + "    GROUP BY \n"
                 + "        id_san_pham\n"
                 + ") ct ON sp.id = ct.id_san_pham\n"
-                + "ORDER BY sp.ngay_tao DESC";
+                + "WHERE \n"
+                + "    sp.trang_thai_ban = 1\n"
+                + "ORDER BY \n"
+                + "    sp.ngay_tao DESC;";
 
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
@@ -199,9 +228,9 @@ public class SanPhamRepository {
 
     public boolean remove(Integer id) {
         int check = 0;
-        String sql = "update SanPham \n"
-                + "set trang_thai=0\n"
-                + "where id=?";
+        String sql = "UPDATE SanPham\n"
+                + "SET trang_thai_ban = 0\n"
+                + "WHERE id = ?";
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, id);
             check = ps.executeUpdate();
@@ -308,8 +337,6 @@ public class SanPhamRepository {
             e.printStackTrace();
         }
 
-        
-
         return list;
     }
 
@@ -328,20 +355,7 @@ public class SanPhamRepository {
         return check > 0;
     }
 
-    private boolean updateTrangThai(SanPham sp) {
-        int check = 0;
-        String sql = "update SanPham\n"
-                + "set so_luong =?\n"
-                + "where id=?";
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setObject(1, sp.getSoLuong());
-            ps.setObject(2, sp.getId());
-            check = ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-        }
-        return check > 0;
-    }
+   
 
     public boolean isSanPhamExist(String ten) {
         String sql = "SELECT COUNT(*) FROM SanPham  WHERE ten_san_pham= ?";

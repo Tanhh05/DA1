@@ -57,12 +57,12 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
     SanPhamForm formSP;
     
 
-    public Menu() {
-        
+    public Menu(int trangHienThi) {
+        this.trangHienThi = trangHienThi;
         initComponents();
         initWebcam();     
         setLocationRelativeTo(null);
-//        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
         
     }
 
@@ -122,7 +122,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
 
         /* Create and display the form */
         SwingUtilities.invokeLater(() -> {
-            new Menu().setVisible(true);
+            new Menu(1).setVisible(true);
         });
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -146,7 +146,7 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Menu().setVisible(true);
+            new Menu(1).setVisible(true);
         });
     }
 
@@ -202,16 +202,16 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            if (trangHienThi == 1) {
-                
-            }
-
-//            if (result != null) {
+//            if(trangHienThi==1){
+//                 if (result != null) {
 //                System.out.println("hien thi toi day");
 //                String ketqua = result.getText();
 //                maHD = result.getText();
 //                id = result.getText();
 //                result_field.setText(ketqua);
+//            }
+
+           
 //
 ////                  ** cach day du lieu chuyen sang trang hoa don don va tim kiem
 ////                    tao m?t ham tim kiem voi ma hoa don
@@ -224,19 +224,34 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
 //                dispose();// lai di
 //                return;
 //            }
-            
-            if (result != null) {
-                    System.out.println("Mã sản phẩm print: ");
-                    String ketqua = result.getText();
-                    maSPCT = result.getText();
-                    result_field.setText(ketqua);
-                                                  
+//            
+//            if (result != null) {
+//                    System.out.println("Mã sản phẩm print: ");
 //                    String ketqua = result.getText();
+//                    maSPCT = result.getText();
 //                    result_field.setText(ketqua);
-                    webcam.close();
-                    this.dispose();
-                    return;
+//                                                  
+////                    String ketqua = result.getText();
+////                    result_field.setText(ketqua);
+//                    webcam.close();
+//                    this.dispose();
+//                    return;
+//                }
+
+             if (result != null) {
+                String ketqua = result.getText();
+                result_field.setText(ketqua);
+
+                if (trangHienThi == 1) {
+                    maHD = ketqua;
+                } else if (trangHienThi == 2) {
+                    maSPCT = ketqua;
                 }
+
+                webcam.close();
+                this.dispose();
+                return;
+            }
         }
     }
 
