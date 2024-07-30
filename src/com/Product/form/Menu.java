@@ -55,12 +55,14 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
     
     public static String maSPCT;// lấy mã spct theo cái mã này này
     SanPhamForm formSP;
+    
 
     public Menu() {
         
         initComponents();
         initWebcam();     
         setLocationRelativeTo(null);
+//        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
     }
 

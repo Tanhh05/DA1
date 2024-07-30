@@ -192,7 +192,7 @@ public class SanPhamForm extends javax.swing.JPanel {
 
             @Override
             public void onDelete(int row) {
-                int respone = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa không?");
+                int respone = JOptionPane.showConfirmDialog(null, "Bạn có muốn sửa không?");
                 if (respone == JOptionPane.YES_OPTION) {
                     int selectedRowIndex = tbl_SanPham.getSelectedRow();
                     if (selectedRowIndex != -1) {
@@ -220,9 +220,54 @@ public class SanPhamForm extends javax.swing.JPanel {
 
         tbl_SanPham.getColumnModel().getColumn(7).setCellRenderer(new TableActionCellRender());
         tbl_SanPham.getColumnModel().getColumn(7).setCellEditor(new TableActionCellEditor(eventSanPham));
+        
+        
+        TableActionEvent eventSanPhamChiTiet = new TableActionEvent() {
+            @Override
+            public void onEdit(int row) {
+                int respone = JOptionPane.showConfirmDialog(null, "Bạn có muốn xem danh sách sản phẩm chi tiết của sản phẩm này?");
+                if (respone == JOptionPane.YES_OPTION) {
+                  
+                }
+            }
 
-//        tbl_Thuoc_Tinh_San_Pham.getColumnModel().getColumn(3).setCellRenderer(new TableActionCellRender());
-//        tbl_Thuoc_Tinh_San_Pham.getColumnModel().getColumn(3).setCellEditor(new TableActionCellEditor(eventThuocTinhSanPham));
+            @Override
+            public void onDelete(int row) {
+                 int result = JOptionPane.showConfirmDialog(null, "Bạn muốn sửa sản phẩm này?", "Xác nhận", JOptionPane.YES_NO_OPTION,    JOptionPane.QUESTION_MESSAGE );
+
+        if (result == JOptionPane.YES_OPTION) {
+            // Thực hiện hành động nếu người dùng chọn "Yes"
+                  int selectedRowIndex = tbl_San_Pham_Chi_Tiet.getSelectedRow();
+                  System.out.println("index " +selectedRowIndex);
+        if (selectedRowIndex != -1) {
+//            // Giả sử cột thứ hai trong bảng là mã sản phẩm chi tiết
+           maSanPhamChiTiet = (String) tbl_San_Pham_Chi_Tiet.getValueAt(selectedRowIndex, 1);
+            System.out.println("ma: " + maSanPhamChiTiet);
+
+            if (maSanPhamChiTiet != null) {
+
+                CapNhatSPCTJFrame detailsFrame = new CapNhatSPCTJFrame();
+                detailsFrame.setVisible(true);
+                showTableSanPhamChiTiet(sanPhamChiTietRepository.getAllGiamDan());
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Mã sản phẩm không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            // Hiển thị thông báo lỗi nếu không có hàng nào được chọn
+            JOptionPane.showMessageDialog(null, "Không có hàng nào được chọn.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+            System.out.println("Người dùng đã chọn Yes");
+        } else {
+            // Thực hiện hành động nếu người dùng chọn "No"
+            System.out.println("Người dùng đã chọn No");
+        }
+            }
+
+        };
+
+        tbl_San_Pham_Chi_Tiet.getColumnModel().getColumn(14).setCellRenderer(new TableActionCellRender());
+        tbl_San_Pham_Chi_Tiet.getColumnModel().getColumn(14).setCellEditor(new TableActionCellEditor(eventSanPhamChiTiet));
     }
     
     
@@ -744,6 +789,7 @@ public class SanPhamForm extends javax.swing.JPanel {
         btn_XuatExcelSPCT = new com.Product.swing.ButtonBadges();
         btn_TimSanPhamChiTiet = new com.Product.swing.ButtonBadges();
         lblQRCode = new javax.swing.JLabel();
+        btn_TaiMaQR = new com.Product.swing.ButtonBadges();
         jPanel4 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -1387,16 +1433,9 @@ public class SanPhamForm extends javax.swing.JPanel {
                 "STT", "Mã SPCT", "Tên Sản Phẩm", "Thương Hiệu", "Xuất Xứ", "Màu Sắc", "Kích Thước", "Chất Liệu", "Cổ Áo", "Độ Dày", "Phong Cách", "Giá Bán", "Số Lượng", "Trạng Thái", "Hành Động"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, true, false, false, false, false, false, false, false, false, false, false, false, true
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -1553,6 +1592,11 @@ public class SanPhamForm extends javax.swing.JPanel {
             }
         });
 
+        btn_TaiMaQR.setBackground(new java.awt.Color(255, 255, 51));
+        btn_TaiMaQR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/import.png"))); // NOI18N
+        btn_TaiMaQR.setText("Tải Mã QR");
+        btn_TaiMaQR.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
         javax.swing.GroupLayout jpn_Thong_Tin_SPCTLayout = new javax.swing.GroupLayout(jpn_Thong_Tin_SPCT);
         jpn_Thong_Tin_SPCT.setLayout(jpn_Thong_Tin_SPCTLayout);
         jpn_Thong_Tin_SPCTLayout.setHorizontalGroup(
@@ -1560,41 +1604,42 @@ public class SanPhamForm extends javax.swing.JPanel {
             .addGroup(jpn_Thong_Tin_SPCTLayout.createSequentialGroup()
                 .addGap(165, 165, 165)
                 .addComponent(btn_ThemMoiSPCT3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(129, 129, 129)
                 .addComponent(btn_Quet_QR, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(159, 159, 159)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_TaiMaQR, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(103, 103, 103)
                 .addComponent(btn_LamMoiSPCT3, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(243, 243, 243))
+                .addGap(119, 119, 119))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpn_Thong_Tin_SPCTLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7)
+                .addContainerGap())
             .addGroup(jpn_Thong_Tin_SPCTLayout.createSequentialGroup()
-                .addGroup(jpn_Thong_Tin_SPCTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jpn_Thong_Tin_SPCTLayout.createSequentialGroup()
-                        .addGap(383, 383, 383)
-                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(155, 155, 155)
-                        .addComponent(lblQRCode, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpn_Thong_Tin_SPCTLayout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addGroup(jpn_Thong_Tin_SPCTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jpn_Thong_Tin_SPCTLayout.createSequentialGroup()
-                                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_TimKiemSPCT, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_TimSanPhamChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(268, 268, 268)))))
-                .addContainerGap(72, Short.MAX_VALUE))
-            .addGroup(jpn_Thong_Tin_SPCTLayout.createSequentialGroup()
-                .addGroup(jpn_Thong_Tin_SPCTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jpn_Thong_Tin_SPCTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpn_Thong_Tin_SPCTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jpn_Thong_Tin_SPCTLayout.createSequentialGroup()
+                            .addGap(383, 383, 383)
+                            .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(155, 155, 155)
+                            .addComponent(lblQRCode, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpn_Thong_Tin_SPCTLayout.createSequentialGroup()
+                            .addGap(72, 72, 72)
+                            .addGroup(jpn_Thong_Tin_SPCTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jpn_Thong_Tin_SPCTLayout.createSequentialGroup()
+                                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txt_TimKiemSPCT, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btn_TimSanPhamChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(268, 268, 268))
+                                .addGroup(jpn_Thong_Tin_SPCTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cbb_LocTheoGia, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jpn_Thong_Tin_SPCTLayout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addComponent(btn_XuatExcelSPCT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cbb_LocTheoGia, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpn_Thong_Tin_SPCTLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 994, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btn_XuatExcelSPCT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         jpn_Thong_Tin_SPCTLayout.setVerticalGroup(
             jpn_Thong_Tin_SPCTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1614,7 +1659,8 @@ public class SanPhamForm extends javax.swing.JPanel {
                 .addGroup(jpn_Thong_Tin_SPCTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_ThemMoiSPCT3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_LamMoiSPCT3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_Quet_QR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_Quet_QR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_TaiMaQR, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jpn_Thong_Tin_SPCTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_XuatExcelSPCT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1630,7 +1676,7 @@ public class SanPhamForm extends javax.swing.JPanel {
             jpn_SPCTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpn_SPCTLayout.createSequentialGroup()
                 .addComponent(jpn_Thong_Tin_SPCT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
             .addGroup(jpn_SPCTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpn_SPCTLayout.createSequentialGroup()
                     .addContainerGap()
@@ -2735,36 +2781,7 @@ public class SanPhamForm extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_SuaThuocTinhSanPhamActionPerformed
 
     private void tbl_San_Pham_Chi_TietMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_San_Pham_Chi_TietMouseClicked
-        // TODO add your handling code here:
-        int result = JOptionPane.showConfirmDialog(null, "Bạn muốn sửa sản phẩm này?", "Xác nhận", JOptionPane.YES_NO_OPTION,    JOptionPane.QUESTION_MESSAGE );
-
-        if (result == JOptionPane.YES_OPTION) {
-            // Thực hiện hành động nếu người dùng chọn "Yes"
-                  int selectedRowIndex = tbl_San_Pham_Chi_Tiet.getSelectedRow();
-                  System.out.println("index " +selectedRowIndex);
-        if (selectedRowIndex != -1) {
-//            // Giả sử cột thứ hai trong bảng là mã sản phẩm chi tiết
-           maSanPhamChiTiet = (String) tbl_San_Pham_Chi_Tiet.getValueAt(selectedRowIndex, 1);
-            System.out.println("ma: " + maSanPhamChiTiet);
-
-            if (maSanPhamChiTiet != null) {
-
-                CapNhatSPCTJFrame detailsFrame = new CapNhatSPCTJFrame();
-                detailsFrame.setVisible(true);
-                showTableSanPhamChiTiet(sanPhamChiTietRepository.getAllGiamDan());
-
-            } else {
-                JOptionPane.showMessageDialog(this, "Mã sản phẩm không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            // Hiển thị thông báo lỗi nếu không có hàng nào được chọn
-            JOptionPane.showMessageDialog(this, "Không có hàng nào được chọn.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
-            System.out.println("Người dùng đã chọn Yes");
-        } else {
-            // Thực hiện hành động nếu người dùng chọn "No"
-            System.out.println("Người dùng đã chọn No");
-        }
+       
     }//GEN-LAST:event_tbl_San_Pham_Chi_TietMouseClicked
 
     private void btn_XoaThuocTinhSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_XoaThuocTinhSanPhamActionPerformed
@@ -3162,6 +3179,7 @@ public class SanPhamForm extends javax.swing.JPanel {
     private com.Product.swing.ButtonBadges btn_Quet_QR;
     private com.Product.swing.ButtonBadges btn_SuaSanPham;
     private com.Product.swing.ButtonBadges btn_SuaThuocTinhSanPham;
+    private com.Product.swing.ButtonBadges btn_TaiMaQR;
     private com.Product.swing.ButtonBadges btn_ThemMoiSPCT3;
     private com.Product.swing.ButtonBadges btn_ThemNhanhChatLieu;
     private com.Product.swing.ButtonBadges btn_ThemNhanhCoAo;
