@@ -248,5 +248,36 @@ public class ThongTinKhachHangRepository {
 //        return lists;
 //    }
     
-    
+    public KhachHang getKhachHangById(int id) {
+    String sql = "SELECT id, ma_khach_hang, ho_ten, so_dien_thoai, gioi_tinh, ngay_sinh, email, dia_chi, ngay_tao " +
+                 "FROM KhachHang WHERE trang_thai = 1 AND id = ?";
+    try (Connection con = DBConnect.getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        // Gán giá trị cho tham số
+        ps.setInt(1, id);
+
+        // Thực thi câu lệnh truy vấn
+        ResultSet rs = ps.executeQuery();
+
+        // Xử lý kết quả
+        if (rs.next()) {
+            return new KhachHang(
+                rs.getInt("id"),
+                rs.getString("ma_khach_hang"),
+                rs.getString("ho_ten"),
+                rs.getString("so_dien_thoai"),
+                rs.getBoolean("gioi_tinh"),
+                rs.getString("ngay_sinh"),
+                rs.getString("email"),
+                rs.getString("dia_chi"),
+                rs.getString("ngay_tao")
+            );
+        }
+    } catch (Exception e) {
+        e.printStackTrace(System.out);
+    }
+    return null;
+}
+
 }

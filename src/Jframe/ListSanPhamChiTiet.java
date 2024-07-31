@@ -33,6 +33,7 @@ public class ListSanPhamChiTiet extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("Danh sách sản phẩm chi tiết");
         showDataTable();
+
     }
 
     private void showDataTable() {

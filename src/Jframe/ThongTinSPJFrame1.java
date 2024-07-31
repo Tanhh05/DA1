@@ -35,6 +35,7 @@ public class ThongTinSPJFrame1 extends javax.swing.JFrame {
         setTitle("Thông Tin Chi Tiết Sản Phẩm");
 //        this.sp = sp;
         this.loadData();
+        
     }
 
     

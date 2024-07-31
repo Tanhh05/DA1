@@ -4,6 +4,7 @@
  */
 package com.Product.main;
 
+import com.Product.form.ForgetPasswordForm;
 import com.Product.form.MainForm;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,13 +37,6 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         Login = new javax.swing.JPanel();
-        QuenMatKhau = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        textField1 = new com.Product.GUI.textfield.TextField();
-        passwordField1 = new com.Product.GUI.textfield.PasswordField();
-        passwordField2 = new com.Product.GUI.textfield.PasswordField();
-        buttonBadges1 = new com.Product.swing.ButtonBadges();
         DangNhap = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txt_Email = new com.Product.GUI.textfield.TextField();
@@ -54,76 +48,6 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        QuenMatKhau.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setText("Đổi Mật Khẩu");
-
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setText("Back");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        textField1.setLabelText("Email");
-        textField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textField1ActionPerformed(evt);
-            }
-        });
-
-        passwordField1.setLabelText("Nhập Mật Khẩu Cũ");
-
-        passwordField2.setLabelText("Nhập Mật Khẩu Mới");
-
-        buttonBadges1.setBackground(new java.awt.Color(255, 204, 153));
-        buttonBadges1.setText("Xác Nhận Đổi");
-        buttonBadges1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-
-        javax.swing.GroupLayout QuenMatKhauLayout = new javax.swing.GroupLayout(QuenMatKhau);
-        QuenMatKhau.setLayout(QuenMatKhauLayout);
-        QuenMatKhauLayout.setHorizontalGroup(
-            QuenMatKhauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, QuenMatKhauLayout.createSequentialGroup()
-                .addContainerGap(159, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(129, 129, 129))
-            .addGroup(QuenMatKhauLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(QuenMatKhauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(textField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(passwordField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(passwordField2, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(QuenMatKhauLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(QuenMatKhauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(QuenMatKhauLayout.createSequentialGroup()
-                        .addComponent(jButton4)
-                        .addGap(201, 201, 201))
-                    .addComponent(buttonBadges1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        QuenMatKhauLayout.setVerticalGroup(
-            QuenMatKhauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(QuenMatKhauLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel3)
-                .addGap(41, 41, 41)
-                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(passwordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(passwordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(buttonBadges1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(jButton4)
-                .addContainerGap())
-        );
 
         DangNhap.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -145,6 +69,7 @@ public class Login extends javax.swing.JFrame {
 
         cbk_MatKhau.setText("Nhớ mật khẩu");
 
+        lb_QuenMatKhau.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lb_QuenMatKhau.setText("Quên mật khẩu?");
         lb_QuenMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -202,14 +127,10 @@ public class Login extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(DangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(QuenMatKhau, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         LoginLayout.setVerticalGroup(
             LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(DangNhap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(QuenMatKhau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         View.setBackground(new java.awt.Color(255, 255, 255));
@@ -256,16 +177,11 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        QuenMatKhau.setVisible(false);
-        DangNhap.setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
-
     private void lb_QuenMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_QuenMatKhauMouseClicked
         // TODO add your handling code here:
-        DangNhap.setVisible(false);
-        QuenMatKhau.setVisible(true);
+        ForgetPasswordForm v = new ForgetPasswordForm();
+        v.setVisible(true);
+       
     }//GEN-LAST:event_lb_QuenMatKhauMouseClicked
 
     private void btn_DangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DangNhapActionPerformed
@@ -279,7 +195,7 @@ public class Login extends javax.swing.JFrame {
         
         try {
             conn = DBConnect.getConnection();
-            String sql = "select * from NguoiDung where email = ? and mat_khau = ?";
+            String sql = "select * from NhanVien where email = ? and mat_khau = ?";
             
             ps = conn.prepareStatement(sql);
             ps.setString(1, email);
@@ -313,10 +229,6 @@ public class Login extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btn_DangNhapActionPerformed
-
-    private void textField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -356,19 +268,12 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel DangNhap;
     private javax.swing.JPanel Login;
-    private javax.swing.JPanel QuenMatKhau;
     private javax.swing.JPanel View;
     private com.Product.swing.ButtonBadges btn_DangNhap;
-    private com.Product.swing.ButtonBadges buttonBadges1;
     private checkbox.JCheckBoxCustom cbk_MatKhau;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lb_QuenMatKhau;
-    private com.Product.GUI.textfield.PasswordField passwordField1;
-    private com.Product.GUI.textfield.PasswordField passwordField2;
-    private com.Product.GUI.textfield.TextField textField1;
     private com.Product.GUI.textfield.TextField txt_Email;
     private com.Product.GUI.textfield.PasswordField txt_MatKhau;
     // End of variables declaration//GEN-END:variables

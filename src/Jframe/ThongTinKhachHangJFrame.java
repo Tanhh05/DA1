@@ -4,6 +4,8 @@
  */
 package Jframe;
 
+import com.Product.form.BanHangForm;
+import com.Product.form.SanPhamForm;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +27,8 @@ public class ThongTinKhachHangJFrame extends javax.swing.JFrame {
     private DefaultTableModel dtm = new DefaultTableModel();
     private ThongTinKhachHangRepository ttkhRepo = new ThongTinKhachHangRepository();
 
+    public static Integer id_tamKH;
+
     /**
      * Creates new form ThongTinKhachHangJFrame
      */
@@ -34,6 +38,7 @@ public class ThongTinKhachHangJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Thông Tin Khách Hàng - SUNSHINE");
         showDataTTKH(ttkhRepo.getAll());
+
     }
 
     private void showDataTTKH(ArrayList<KhachHang> list_kh) {
@@ -86,7 +91,6 @@ public class ThongTinKhachHangJFrame extends javax.swing.JFrame {
 //            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ. Vui lòng nhập từ 9 đến 14 chữ số.", "Lỗi", JOptionPane.ERROR_MESSAGE);
 //            return null;
 //        }
-
         // Validate email
         String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         Pattern pattern = Pattern.compile(emailPattern);
@@ -105,7 +109,6 @@ public class ThongTinKhachHangJFrame extends javax.swing.JFrame {
 //            JOptionPane.showMessageDialog(this, "Ngày sinh không hợp lệ. Vui lòng nhập theo định dạng dd/MM/yyyy.", "Lỗi", JOptionPane.ERROR_MESSAGE);
 //            return null;
 //        }
-
         // Convert gender selection to Boolean
         Boolean gioiTinh = rdo_Nam.isSelected(); // true cho "Nam", false cho "Nữ"
 
@@ -335,7 +338,32 @@ public class ThongTinKhachHangJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_rdo_NuActionPerformed
 
     private void tbl_khachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_khachHangMouseClicked
-        // TODO add your handling code here:
+        // Lấy chỉ số hàng được chọn
+        int selectedRowIndex = tbl_khachHang.getSelectedRow();
+
+        if (selectedRowIndex != -1) {
+            // Lấy giá trị từ cột đầu tiên và kiểm tra kiểu dữ liệu
+            Object value = tbl_khachHang.getValueAt(selectedRowIndex, 0);
+
+            if (value instanceof Integer) {
+                id_tamKH = (Integer) value;
+                System.out.println("ID khách hàng: " + id_tamKH);
+
+                // Đóng cửa sổ hiện tại nếu ID hợp lệ
+                if (id_tamKH != null) {
+                    this.dispose(); // Đóng cửa sổ hiện tại
+                } else {
+                    // Thông báo lỗi nếu id_tamKH là null
+                    JOptionPane.showMessageDialog(this, "Mã khách hàng không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                // Thông báo lỗi nếu giá trị không phải là Integer
+                JOptionPane.showMessageDialog(this, "Dữ liệu không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            // Hiển thị thông báo lỗi nếu không có hàng nào được chọn
+            JOptionPane.showMessageDialog(this, "Không có hàng nào được chọn.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_tbl_khachHangMouseClicked
 
     private void btn_ThemThongTinKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ThemThongTinKhachHangActionPerformed

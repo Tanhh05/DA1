@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
@@ -50,28 +51,40 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void menuSelected(int menuIndex, int subMenuIndex) {
                 System.out.println("Menu Index : " + menuIndex + " SubMenu Index " + subMenuIndex);
-                if(menuIndex == 0){
+                if (menuIndex == 0) {
                     main.showForm(new TrangChu());
-                }else if (menuIndex == 1) {
+                } else if (menuIndex == 1) {
                     main.showForm(new BanHangForm());
-                }else if(menuIndex==2){
+                } else if (menuIndex == 2) {
                     main.showForm(new SanPhamForm());
-                }else if(menuIndex==3){
+                } else if (menuIndex == 3) {
                     main.showForm(new HoaDonForm());
-                }else if(menuIndex==4){
+                } else if (menuIndex == 4) {
                     try {
                         main.showForm(new GiamGiaForm());
                     } catch (SQLException ex) {
                         Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }else if(menuIndex==5){
+                } else if (menuIndex == 5) {
                     main.showForm(new KhachHangForm());
-                }else if(menuIndex==6){
+                } else if (menuIndex == 6) {
                     main.showForm(new ThongKeForm());
-                }else if(menuIndex==7){
+                } else if (menuIndex == 7) {
                     main.showForm(new NhanVienForm());
-                }else if(menuIndex==8){
-                    main.showForm(new DoiMatKhauForm());
+                } else if (menuIndex == 8) {
+                    int response = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn tiếp tục?", "Xác nhận",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+                    // Xử lý phản hồi từ hộp thoại xác nhận
+                    if (response == JOptionPane.YES_OPTION) {
+                        Login v = new Login();
+                        v.setVisible(true);
+                        // Thực hiện hành động khi người dùng chọn Yes
+                    } else if (response == JOptionPane.NO_OPTION) {
+                       
+                    } else if (response == JOptionPane.CLOSED_OPTION) {
+                       
+                    }
                 }
             }
         });

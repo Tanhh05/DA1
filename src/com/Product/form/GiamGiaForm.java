@@ -392,13 +392,9 @@ txtMoTa.setText(tbl_BangTT.getValueAt(i, 8).toString());
     }//GEN-LAST:event_tbl_BangTTMouseClicked
 
     private void BtnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnThemActionPerformed
-       try {
-           // TODO add your handling code here:
-           repo.add(getFormData());
-           ShowDataTable(repo.getAll());
-       } catch (SQLException ex) {
-           Logger.getLogger(GiamGiaForm.class.getName()).log(Level.SEVERE, null, ex);
-       }
+        // TODO add your handling code here:
+        repo.add(getFormData());
+        ShowDataTable(repo.getAll());
     }//GEN-LAST:event_BtnThemActionPerformed
 
     private void BtnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSuaActionPerformed

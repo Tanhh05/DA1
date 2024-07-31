@@ -21,7 +21,7 @@ import java.util.Date;
  */
 public class PhieuGiamGiaRepository {
   
-    public ArrayList<PhieuGiamGia> getAll() throws SQLException{
+    public ArrayList<PhieuGiamGia> getAll() {
         String sql = "select id, ma_voucher, ngay_bat_dau,ngay_het_han,loai_giam_gia,gia_tri_giam_gia,gia_tri_don_hang_toi_thieu,so_lan_su_dung_toi_da,so_lan_su_dung,trang_thai,mo_ta from Voucher"; 
         try(Connection con = DBConnect.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)){
