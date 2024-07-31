@@ -48,22 +48,20 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
     HoaDonForm form;
     private static final long serialVersionUID = 6441489157408381878L;
 //    private Executor executor = Executors.newSingleThreadExecutor(this);
-    
+
     public static String maHD;
-    
+
     public static String id;
-    
+
     public static String maSPCT;// lấy mã spct theo cái mã này này
     SanPhamForm formSP;
-    
 
     public Menu(int trangHienThi) {
         this.trangHienThi = trangHienThi;
         initComponents();
-        initWebcam();     
+        initWebcam();
         setLocationRelativeTo(null);
-        
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -175,6 +173,9 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
 
     @Override
     public void run() {
+        long startTime = System.currentTimeMillis(); // Khởi tạo thời gian bắt đầu bên ngoài vòng lặp
+        long timeout = 10000; // Thời gian chờ 10 giây (10000 milliseconds)
+
         while (true) {
             try {
                 Thread.sleep(100);
@@ -186,68 +187,43 @@ public class Menu extends javax.swing.JFrame implements Runnable, ThreadFactory 
             BufferedImage image = null;
 
             if (webcam.isOpen()) {
-                if ((image = webcam.getImage()) == null) {
-
-                    continue;
+                image = webcam.getImage();
+                if (image == null) {
+                    continue; // Bỏ qua lần lặp này nếu image là null
                 }
             }
 
-            LuminanceSource source = new BufferedImageLuminanceSource(image);
-            BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+            if (image != null) {
+                LuminanceSource source = new BufferedImageLuminanceSource(image);
+                BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
 
-            try {
-
-                result = new MultiFormatReader().decode(bitmap);
-            } catch (NotFoundException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-//            if(trangHienThi==1){
-//                 if (result != null) {
-//                System.out.println("hien thi toi day");
-//                String ketqua = result.getText();
-//                maHD = result.getText();
-//                id = result.getText();
-//                result_field.setText(ketqua);
-//            }
-
-           
-//
-////                  ** cach day du lieu chuyen sang trang hoa don don va tim kiem
-////                    tao m?t ham tim kiem voi ma hoa don
-////                    dong giao dien quet ma
-////  
-////                   HoaDonForm hoadonform = new HoaDonForm(ketqua);
-////                SanPhamChiTietJFrame.maSPCT = result.getText();
-////                hoadonform.resultQR = ketqua;
-//                webcam.close();
-//                dispose();// lai di
-//                return;
-//            }
-//            
-//            if (result != null) {
-//                    System.out.println("Mã sản phẩm print: ");
-//                    String ketqua = result.getText();
-//                    maSPCT = result.getText();
-//                    result_field.setText(ketqua);
-//                                                  
-////                    String ketqua = result.getText();
-////                    result_field.setText(ketqua);
-//                    webcam.close();
-//                    this.dispose();
-//                    return;
-//                }
-
-             if (result != null) {
-                String ketqua = result.getText();
-                result_field.setText(ketqua);
-
-                if (trangHienThi == 1) {
-                    maHD = ketqua;
-                } else if (trangHienThi == 2) {
-                    maSPCT = ketqua;
+                try {
+                    result = new MultiFormatReader().decode(bitmap);
+                } catch (NotFoundException ex) {
+                    // Không cần log lỗi mỗi lần không tìm thấy mã, chỉ cần tiếp tục vòng lặp
                 }
 
+                if (result != null) {
+                    String ketqua = result.getText();
+                    result_field.setText(ketqua);
+
+                    if (trangHienThi == 1) {
+                        maHD = ketqua;
+                        id = result.getText();
+                    } else if (trangHienThi == 2) {
+                        maSPCT = ketqua;
+                    }
+
+                    webcam.close();
+                    this.dispose();
+                    return;
+                }
+            }
+
+            // Kiểm tra thời gian chờ
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - startTime >= timeout) {
+                JOptionPane.showMessageDialog(this, "Không có mã được quét", "Thông báo", JOptionPane.WARNING_MESSAGE);
                 webcam.close();
                 this.dispose();
                 return;

@@ -1,5 +1,6 @@
 package com.Product.form;
 
+import Jframe.ThongTinKhachHangJFrame;
 import com.Product.main.Main;
 
 import java.awt.Color;
@@ -12,11 +13,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import main.entity.HoaDon;
-import main.repository.DanhSachSPRepository;
 import main.repository.HoaDonChiTietRepository;
 import main.repository.HoaDonRepository;
 import main.repository.SanPhamChiTietRepository;
-import main.response.DanhSachSanPham;
 import main.response.HoaDonChiTietReponse;
 import main.response.HoaDonResponse;
 import main.response.HoaDonResponse1;
@@ -193,7 +192,7 @@ public class BanHangForm extends javax.swing.JPanel {
                 .addComponent(buttonBadges1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(buttonBadges2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 364, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 368, Short.MAX_VALUE)
                 .addComponent(buttonBadges3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,8 +212,8 @@ public class BanHangForm extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(36, 36, 36)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(37, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -227,8 +226,13 @@ public class BanHangForm extends javax.swing.JPanel {
         buttonBadges4.setBackground(new java.awt.Color(255, 153, 153));
         buttonBadges4.setText("Chọn");
         buttonBadges4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonBadges4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBadges4ActionPerformed(evt);
+            }
+        });
 
-        textField2.setText("Khách Bán Le");
+        textField2.setText("Khách Bán Lẻ");
         textField2.setLabelText("");
 
         textField1.setText("KH001");
@@ -720,6 +724,12 @@ public class BanHangForm extends javax.swing.JPanel {
         txt_tongTien1.setText("");
         txt_maNhanVien.setText("");
     }//GEN-LAST:event_buttonBadges6ActionPerformed
+
+    private void buttonBadges4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBadges4ActionPerformed
+        // TODO add your handling code here:
+        ThongTinKhachHangJFrame v = new ThongTinKhachHangJFrame();
+        v.setVisible(true);
+    }//GEN-LAST:event_buttonBadges4ActionPerformed
 
     private Double showTotalMoney(ArrayList<HoaDonChiTietReponse> lists) {
         double sum = 0;

@@ -24,7 +24,10 @@ public class SanPhamRepository {
                 + "    sp.ten_san_pham,\n"
                 + "    sp.mo_ta,\n"
                 + "    COALESCE(ct.tong_so_luong_ton, 0) AS so_luong,\n"
-                + "    sp.trang_thai,\n"
+                + "    CASE \n"
+                + "        WHEN COALESCE(ct.tong_so_luong_ton, 0) > 0 THEN 1\n"
+                + "        ELSE 0\n"
+                + "    END AS trang_thai,\n"
                 + "    sp.ngay_tao\n"
                 + "FROM \n"
                 + "    SanPham sp\n"
@@ -38,7 +41,7 @@ public class SanPhamRepository {
                 + "        id_san_pham\n"
                 + ") ct ON sp.id = ct.id_san_pham\n"
                 + "WHERE \n"
-                + "    sp.trang_thai_ban = 1";
+                + "    sp.trang_thai_ban = 1;";
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -66,7 +69,10 @@ public class SanPhamRepository {
                 + "    sp.ten_san_pham,\n"
                 + "    sp.mo_ta,\n"
                 + "    COALESCE(ct.tong_so_luong_ton, 0) AS so_luong,\n"
-                + "    sp.trang_thai,\n"
+                + "    CASE \n"
+                + "        WHEN COALESCE(ct.tong_so_luong_ton, 0) > 0 THEN 1\n"
+                + "        ELSE 0\n"
+                + "    END AS trang_thai,\n"
                 + "    sp.ngay_tao\n"
                 + "FROM \n"
                 + "    SanPham sp\n"
@@ -111,7 +117,10 @@ public class SanPhamRepository {
                 + "    sp.ten_san_pham,\n"
                 + "    sp.mo_ta,\n"
                 + "    COALESCE(ct.tong_so_luong_ton, 0) AS so_luong,\n"
-                + "    sp.trang_thai,\n"
+                + "    CASE \n"
+                + "        WHEN COALESCE(ct.tong_so_luong_ton, 0) > 0 THEN 1\n"
+                + "        ELSE 0\n"
+                + "    END AS trang_thai,\n"
                 + "    sp.ngay_tao\n"
                 + "FROM \n"
                 + "    SanPham sp\n"
@@ -125,7 +134,7 @@ public class SanPhamRepository {
                 + "        id_san_pham\n"
                 + ") ct ON sp.id = ct.id_san_pham\n"
                 + "WHERE \n"
-                + "    sp.trang_thai = 0 \n"
+                + "    sp.trang_thai = 0\n"
                 + "    AND sp.trang_thai_ban = 1;"; // Lọc sản phẩm ngừng bán
 
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
@@ -173,7 +182,10 @@ public class SanPhamRepository {
                 + "    sp.ten_san_pham,\n"
                 + "    sp.mo_ta,\n"
                 + "    COALESCE(ct.tong_so_luong_ton, 0) AS so_luong,\n"
-                + "    sp.trang_thai,\n"
+                + "    CASE \n"
+                + "        WHEN COALESCE(ct.tong_so_luong_ton, 0) > 0 THEN 1\n"
+                + "        ELSE 0\n"
+                + "    END AS trang_thai,\n"
                 + "    sp.ngay_tao\n"
                 + "FROM \n"
                 + "    SanPham sp\n"
@@ -242,13 +254,31 @@ public class SanPhamRepository {
 
     public ArrayList<SanPham> searchh(String searchString) {
         // Cập nhật câu lệnh SQL để tìm kiếm theo các cột cần thiết
-        String sql = "SELECT sp.id, sp.ma_san_pham, sp.ten_san_pham, sp.mo_ta, "
-                + "COALESCE(SUM(spct.so_luong_ton), 0) AS so_luong, "
-                + "sp.trang_thai, sp.ngay_tao "
-                + "FROM SanPham sp "
-                + "LEFT JOIN SanPhamChiTiet spct ON sp.id = spct.id_san_pham "
-                + "WHERE sp.ma_san_pham LIKE ? OR sp.ten_san_pham LIKE ? OR sp.mo_ta LIKE ? "
-                + "GROUP BY sp.id, sp.ma_san_pham, sp.ten_san_pham, sp.mo_ta, sp.trang_thai, sp.ngay_tao";
+        String sql = "SELECT \n"
+                + "    sp.id,\n"
+                + "    sp.ma_san_pham,\n"
+                + "    sp.ten_san_pham,\n"
+                + "    sp.mo_ta,\n"
+                + "    COALESCE(SUM(spct.so_luong_ton), 0) AS so_luong,\n"
+                + "    CASE \n"
+                + "        WHEN COALESCE(SUM(spct.so_luong_ton), 0) > 0 THEN 1\n"
+                + "        ELSE 0\n"
+                + "    END AS trang_thai,\n"
+                + "    sp.ngay_tao\n"
+                + "FROM \n"
+                + "    SanPham sp\n"
+                + "LEFT JOIN \n"
+                + "    SanPhamChiTiet spct ON sp.id = spct.id_san_pham\n"
+                + "WHERE \n"
+                + "    sp.ma_san_pham LIKE ? \n"
+                + "    OR sp.ten_san_pham LIKE ? \n"
+                + "    OR sp.mo_ta LIKE ?\n"
+                + "GROUP BY \n"
+                + "    sp.id, \n"
+                + "    sp.ma_san_pham, \n"
+                + "    sp.ten_san_pham, \n"
+                + "    sp.mo_ta, \n"
+                + "    sp.ngay_tao;";
 
         ArrayList<SanPham> lists = new ArrayList<>();
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
@@ -300,7 +330,10 @@ public class SanPhamRepository {
                 + "    sp.ten_san_pham,\n"
                 + "    sp.mo_ta,\n"
                 + "    COALESCE(ct.tong_so_luong_ton, 0) AS so_luong,\n"
-                + "    sp.trang_thai,\n"
+                + "    CASE \n"
+                + "        WHEN COALESCE(ct.tong_so_luong_ton, 0) > 0 THEN 1\n"
+                + "        ELSE 0\n"
+                + "    END AS trang_thai,\n"
                 + "    sp.ngay_tao\n"
                 + "FROM \n"
                 + "    SanPham sp\n"
@@ -313,7 +346,8 @@ public class SanPhamRepository {
                 + "    GROUP BY \n"
                 + "        id_san_pham\n"
                 + ") ct ON sp.id = ct.id_san_pham\n"
-                + "WHERE sp.ten_san_pham LIKE ?";
+                + "WHERE \n"
+                + "    sp.ten_san_pham LIKE ?;";
 
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, "%" + tenSanPham + "%"); // Tìm kiếm không phân biệt chữ hoa chữ thường
@@ -354,8 +388,6 @@ public class SanPhamRepository {
         }
         return check > 0;
     }
-
-   
 
     public boolean isSanPhamExist(String ten) {
         String sql = "SELECT COUNT(*) FROM SanPham  WHERE ten_san_pham= ?";

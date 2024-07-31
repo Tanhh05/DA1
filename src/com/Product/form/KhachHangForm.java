@@ -25,7 +25,6 @@ import org.apache.poi.xssf.usermodel.*;
 import javax.swing.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 
-
 public class KhachHangForm extends javax.swing.JPanel {
 
     private DefaultTableModel dtm, dtm1;
@@ -68,17 +67,6 @@ public class KhachHangForm extends javax.swing.JPanel {
     }
 
     private KhachHang getFormDataKhachHang() {
-////        String ngaySinhStr = txtNgaySinh.getText();
-//
-////        Date ngaySinh = null;
-////        try {
-////            if (ngaySinhStr != null && !ngaySinhStr.trim().isEmpty()) {
-////                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-////                ngaySinh = formatter.parse(ngaySinhStr);
-////            }
-////        } catch (ParseException e) {
-////            e.printStackTrace(System.out);
-////        }
 
         // Convert gender selection to Boolean
         Boolean gioiTinh = null;
@@ -86,6 +74,9 @@ public class KhachHangForm extends javax.swing.JPanel {
         if (genderStr != null) {
             gioiTinh = genderStr.equalsIgnoreCase("Nam");
         }
+
+        // Convert date of birth from String to Date
+      
 
         // Build KhachHang object using Lombok's builder
         KhachHang kh = KhachHang.builder()
@@ -100,16 +91,20 @@ public class KhachHangForm extends javax.swing.JPanel {
         return kh;
     }
 
-    private void detailKhachHang(int index) {
-        KhachHang kh = repottkh.getAll().get(index);
-        txtMaKH.setText(kh.getMaKhachHang());
-        txtHoTen.setText(kh.getHoTen());
-        txtDiaChi.setText(kh.getDiaChi());
-        txtSDT.setText(kh.getSoDienThoai());
-        txtEmail.setText(kh.getEmail());
-        txtNgaySinh.setText(kh.getNgaySinh());
-        cbGioiTinh.setSelectedItem(kh.isGioiTinh() ? "Nam" : "Nữ");
-    }
+   private void detailKhachHang(int index) {
+    KhachHang kh = repottkh.getAll().get(index);
+    
+    // Định dạng ngày sinh thành chuỗi
+
+    // Cập nhật thông tin khách hàng vào các trường nhập liệu
+    txtMaKH.setText(kh.getMaKhachHang());
+    txtHoTen.setText(kh.getHoTen());
+    txtDiaChi.setText(kh.getDiaChi());
+    txtSDT.setText(kh.getSoDienThoai());
+    txtEmail.setText(kh.getEmail());
+    txtNgaySinh.setText(kh.getNgaySinh()); // Hiển thị ngày sinh dưới dạng chuỗi
+    cbGioiTinh.setSelectedItem(kh.isGioiTinh() ? "Nam" : "Nữ");
+}
 //    private void showcbGioiTinh(){
 //        cbGioiTinh1.removeAllItems();
 //        repottkh.getAll().forEach(s -> dcbmGioiTinh.addElement(s.isGioiTinh()?"Nam":"Nữ"));
@@ -150,13 +145,13 @@ public class KhachHangForm extends javax.swing.JPanel {
         txtSDT = new com.Product.GUI.textfield.TextField();
         txtDiaChi = new com.Product.GUI.textfield.TextField();
         txtEmail = new com.Product.GUI.textfield.TextField();
-        txtNgaySinh = new com.Product.GUI.textfield.TextField();
         cbGioiTinh = new com.Product.GUI.Combobox();
         jLabel3 = new javax.swing.JLabel();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
+        txtNgaySinh = new com.Product.GUI.textfield.TextField();
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -166,7 +161,6 @@ public class KhachHangForm extends javax.swing.JPanel {
         jLabel2.setText("Khách Hàng");
 
         tabbedPaneCustomm28.setBackground(new java.awt.Color(255, 204, 0));
-        tabbedPaneCustomm28.setForeground(new java.awt.Color(0, 0, 0));
         tabbedPaneCustomm28.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         tabbedPaneCustomm28.setSelectedColor(new java.awt.Color(255, 204, 0));
         tabbedPaneCustomm28.setUnselectedColor(new java.awt.Color(255, 204, 0));
@@ -179,7 +173,6 @@ public class KhachHangForm extends javax.swing.JPanel {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel14.setText("Từ ngày :");
 
-        txtTimKiemLSGD.setBackground(new java.awt.Color(255, 255, 255));
         txtTimKiemLSGD.setLabelText("Mã HD- Email-SDT");
         txtTimKiemLSGD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,7 +182,6 @@ public class KhachHangForm extends javax.swing.JPanel {
 
         btnTimKiemLSGD.setBackground(new java.awt.Color(255, 204, 0));
         btnTimKiemLSGD.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnTimKiemLSGD.setForeground(new java.awt.Color(0, 0, 0));
         btnTimKiemLSGD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Product/icon/timkiem.png"))); // NOI18N
         btnTimKiemLSGD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,7 +194,6 @@ public class KhachHangForm extends javax.swing.JPanel {
 
         jButton3.setBackground(new java.awt.Color(255, 204, 0));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
         jButton3.setText("Tìm ngày");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -312,7 +303,6 @@ public class KhachHangForm extends javax.swing.JPanel {
 
         btnSearch1.setBackground(new java.awt.Color(255, 204, 0));
         btnSearch1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnSearch1.setForeground(new java.awt.Color(0, 0, 0));
         btnSearch1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Product/icon/timkiem.png"))); // NOI18N
         btnSearch1.setText("Tìm");
         btnSearch1.addActionListener(new java.awt.event.ActionListener() {
@@ -321,12 +311,10 @@ public class KhachHangForm extends javax.swing.JPanel {
             }
         });
 
-        txtTimKiemNC1.setBackground(new java.awt.Color(255, 255, 255));
         txtTimKiemNC1.setLabelText("Tìm Kiếm :");
 
         btnXuatExcelKH.setBackground(new java.awt.Color(255, 0, 0));
         btnXuatExcelKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnXuatExcelKH.setForeground(new java.awt.Color(0, 0, 0));
         btnXuatExcelKH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Product/icon/xuatfile.png"))); // NOI18N
         btnXuatExcelKH.setText("Xuất Excel");
         btnXuatExcelKH.addActionListener(new java.awt.event.ActionListener() {
@@ -337,7 +325,6 @@ public class KhachHangForm extends javax.swing.JPanel {
 
         jButton2.setBackground(new java.awt.Color(255, 0, 0));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Next");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -448,24 +435,16 @@ public class KhachHangForm extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        txtHoTen.setBackground(new java.awt.Color(255, 255, 255));
         txtHoTen.setLabelText("Họ và Tên");
 
-        txtMaKH.setBackground(new java.awt.Color(255, 255, 255));
         txtMaKH.setEnabled(false);
         txtMaKH.setLabelText("Mã KH");
 
-        txtSDT.setBackground(new java.awt.Color(255, 255, 255));
         txtSDT.setLabelText("SDT");
 
-        txtDiaChi.setBackground(new java.awt.Color(255, 255, 255));
         txtDiaChi.setLabelText("Địa Chỉ");
 
-        txtEmail.setBackground(new java.awt.Color(255, 255, 255));
         txtEmail.setLabelText("Email");
-
-        txtNgaySinh.setBackground(new java.awt.Color(255, 255, 255));
-        txtNgaySinh.setLabelText("Ngày Sinh");
 
         cbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nam", "Nữ" }));
         cbGioiTinh.addActionListener(new java.awt.event.ActionListener() {
@@ -478,7 +457,6 @@ public class KhachHangForm extends javax.swing.JPanel {
 
         btnThem.setBackground(new java.awt.Color(255, 204, 0));
         btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnThem.setForeground(new java.awt.Color(0, 0, 0));
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Product/icon/taohoadon.png"))); // NOI18N
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -489,7 +467,6 @@ public class KhachHangForm extends javax.swing.JPanel {
 
         btnSua.setBackground(new java.awt.Color(255, 204, 0));
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnSua.setForeground(new java.awt.Color(0, 0, 0));
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Product/icon/edit.png"))); // NOI18N
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
@@ -500,7 +477,6 @@ public class KhachHangForm extends javax.swing.JPanel {
 
         btnXoa.setBackground(new java.awt.Color(255, 204, 0));
         btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnXoa.setForeground(new java.awt.Color(0, 0, 0));
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Product/icon/delete.png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
@@ -511,7 +487,6 @@ public class KhachHangForm extends javax.swing.JPanel {
 
         btnReset.setBackground(new java.awt.Color(255, 204, 0));
         btnReset.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnReset.setForeground(new java.awt.Color(0, 0, 0));
         btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/Product/icon/lammoi.png"))); // NOI18N
         btnReset.setText("Làm mới");
         btnReset.setToolTipText("");
@@ -520,6 +495,8 @@ public class KhachHangForm extends javax.swing.JPanel {
                 btnResetActionPerformed(evt);
             }
         });
+
+        txtNgaySinh.setLabelText("Ngày Sinh");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -574,9 +551,9 @@ public class KhachHangForm extends javax.swing.JPanel {
                 .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addComponent(txtNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -709,7 +686,7 @@ public class KhachHangForm extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+
         lsuGiaoDich.setVisible(false);
         ttKhachHang.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -731,7 +708,7 @@ public class KhachHangForm extends javax.swing.JPanel {
 
     private void btnXuatExcelKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelKHActionPerformed
         // TODO add your handling code here:
-         try (XSSFWorkbook workbook = new XSSFWorkbook()) {
+        try (XSSFWorkbook workbook = new XSSFWorkbook()) {
             XSSFSheet spreadsheet = workbook.createSheet("Khách Hàng");
 
             // Tạo kiểu cho tiêu đề chính
@@ -839,12 +816,12 @@ public class KhachHangForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         detailKhachHang(tbkh.getSelectedRow());
         int i = tbkh.getSelectedRow();
-        
+
         Integer id_kh = (int) tbkh.getValueAt(i, 0);
         showDataLSGD(repolichsugiaodich.getByIDKhachHang(id_kh));
-         ttKhachHang.setVisible(false);
-          lsuGiaoDich.setVisible(true);
-       
+        ttKhachHang.setVisible(false);
+        lsuGiaoDich.setVisible(true);
+
     }//GEN-LAST:event_tbkhMouseClicked
 
     private void btnTimKiemLSGDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemLSGDActionPerformed

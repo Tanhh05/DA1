@@ -47,13 +47,17 @@ public class LichSuHoaDonRepository {
     }
     
     public ArrayList<LichSuHoaDonResponse> getByIdLSHoaDon(Integer idHD) {
-        String sql = "SELECT dbo.NhanVien.id, \n"
-                + "       dbo.NhanVien.ma_nhan_vien, \n"
-                + "       dbo.HoaDon.ngay_cap_nhat, \n"
-                + "       dbo.HoaDon.trang_thai\n"
-                + "FROM dbo.NhanVien \n"
-                + "INNER JOIN dbo.HoaDon ON dbo.NhanVien.id = dbo.HoaDon.id_nhan_vien\n"
-                + "WHERE dbo.NhanVien.id = ?;";
+        String sql = "SELECT \n"
+                + "    nv.id, \n"
+                + "    nv.ma_nhan_vien, \n"
+                + "    hd.ngay_cap_nhat, \n"
+                + "    hd.trang_thai\n"
+                + "FROM \n"
+                + "    NhanVien nv\n"
+                + "INNER JOIN \n"
+                + "    HoaDon hd ON nv.id = hd.id_nhan_vien\n"
+                + "WHERE \n"
+                + "    hd.id = ?";
 
         try (Connection con = DBConnect.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)) {
@@ -78,7 +82,7 @@ public class LichSuHoaDonRepository {
         }
         return null;
     }
-    
+
     public ArrayList<LichSuHoaDonResponse> ByIDHoaDon() {
         String sql = "SELECT dbo.NhanVien.id, \n" +
 "       dbo.NhanVien.ma_nhan_vien, \n" +

@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
 /**
  *
  * @author ADMIN
@@ -20,13 +21,25 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class DanhSachSanPham {
-    private Integer ID;
-    private String maSPCT;
-    private String tenSP;
-    private String phongCach;
-    private String xuatXu;
-    private String kichThuoc;
-    private Integer soLuong;
-    private Double giaBan;
+public class HoaDonResponse1 {
+    private Integer id;  
+    
+    private Integer idKH;
+    
+    private Integer idNV;
+    
+    private Integer trangThai;
+    
+    private Double tongTien;
+   
+    private String maHoaDon;
+    
+    private String tenKhachHang;
+    
+    private String maNhanVien;
+
+    private String hoTen;
+    
+    private String ngayTao;
+
 }

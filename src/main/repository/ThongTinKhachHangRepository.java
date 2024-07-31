@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import main.config.DBConnect;
 import java.util.Date;
 
+
 /**
  *
  * @author admin
@@ -22,7 +23,7 @@ public class ThongTinKhachHangRepository {
 
     public ArrayList<KhachHang> getAll() {
         // B1: Tao cau SQL 
-        String sql = "select id,ma_khach_hang,ho_ten,ngay_sinh,gioi_tinh,dia_chi,email,so_dien_thoai,ngay_tao from KhachHang\n"
+        String sql = "select id,ma_khach_hang,ho_ten,so_dien_thoai,gioi_tinh,ngay_sinh,email,dia_chi,ngay_tao from KhachHang\n"
                 + "where trang_thai = 1";
 
         ArrayList<KhachHang> lists = new ArrayList<>();
@@ -35,8 +36,8 @@ public class ThongTinKhachHangRepository {
             // su dung excuteQuery => tra ve 1 bang(resultset)
 
             while (rs.next()) {
-                lists.add(new KhachHang(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5), rs.getString(6),
-                        rs.getString(7), rs.getString(8), rs.getString(9)));
+                lists.add(new KhachHang(rs.getInt("id"), rs.getString("ma_khach_hang"), rs.getString("ho_ten"), rs.getString("ngay_sinh"), rs.getBoolean("gioi_tinh"), rs.getString("email"),
+                        rs.getString("so_dien_thoai"), rs.getString("dia_chi"), rs.getString("ngay_tao")));
             }
 
         } catch (Exception e) {
@@ -178,8 +179,8 @@ public class ThongTinKhachHangRepository {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 lists.add(new KhachHang(
-                        rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5), rs.getString(6),
-                        rs.getString(7), rs.getString(8), rs.getString(9)
+                        rs.getInt("id"), rs.getString(""), rs.getString("ho_ten"), rs.getString("ngay_sinh"), rs.getBoolean("gioi_tinh"), rs.getString("email"),
+                        rs.getString("so_dien_thoai"), rs.getString("dia_chi"), rs.getString("ngay_tao")
                 ));
             }
         } catch (Exception e) {
@@ -246,7 +247,6 @@ public class ThongTinKhachHangRepository {
 //        }
 //        return lists;
 //    }
-    
     
     
 }

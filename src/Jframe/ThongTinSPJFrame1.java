@@ -16,18 +16,19 @@ import javax.swing.JOptionPane;
  *
  * @author ADMIN
  */
-public class ThongTinSPJFrame extends javax.swing.JFrame {
+public class ThongTinSPJFrame1 extends javax.swing.JFrame {
     
     private SanPhamChiTietRespone sp;
 
     SanPhamChiTietRepository spctRepo = new SanPhamChiTietRepository();
-    String maTam = SanPhamForm.maSanPhamChiTiet;
+    
+    String maTam = ListSanPhamChiTiet.maSanPhamChiTiet;
      
     
     /**
      * Creates new form ThongTinSPJFrame
      */
-    public ThongTinSPJFrame() {
+    public ThongTinSPJFrame1() {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -474,21 +475,23 @@ public class ThongTinSPJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ThongTinSPJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThongTinSPJFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ThongTinSPJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThongTinSPJFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ThongTinSPJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThongTinSPJFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ThongTinSPJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThongTinSPJFrame1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ThongTinSPJFrame().setVisible(true);
+                new ThongTinSPJFrame1().setVisible(true);
             }
         });
     }

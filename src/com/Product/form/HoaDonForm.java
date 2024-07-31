@@ -119,7 +119,7 @@ public class HoaDonForm extends javax.swing.JPanel {
         // for..each + lamda 
         lists.forEach(s -> dtm.addRow(new Object[]{
             index.getAndIncrement(), s.getMaHoaDon(), s.getNgayTao(), s.getNgayCapNhap(), s.getTongTien(), s.getMaNhanVien(),
-            s.getHoTen(), s.getDiaChi(), s.getSDT(), s.getTrangThai() == 0 ? "Chưa thanh toán":"Đã Thanh Toán"  , s.getHinhThucTT() == 0 ?"Tiền Mặt" :"Chuyển Khoản"
+            s.getHoTen(), s.getDiaChi(), s.getSDT(), s.getTrangThai() == 0 ? "Chưa thanh toán":"Đã Thanh Toán"  
         }));
     }
 
@@ -309,7 +309,7 @@ public class HoaDonForm extends javax.swing.JPanel {
             }
         });
 
-        cb_httt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tiền Mặt", "Chuyển Khoản", "Tat Ca" }));
+        cb_httt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tiền Mặt", "Chuyển Khoản" }));
         cb_httt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_htttActionPerformed(evt);
@@ -331,13 +331,13 @@ public class HoaDonForm extends javax.swing.JPanel {
 
         tb_hd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã HĐ", "Ngày Tạo", "Ngày Thanh Toán", "Tổng Tiền", "Mã NV", "Tên KH", "Địa Chỉ ", "Số Điện Thoại", "Trạng Thái", "Hình Thức Thanh Toán"
+                "STT", "Mã HĐ", "Ngày Tạo", "Ngày Thanh Toán", "Tổng Tiền", "Mã NV", "Tên KH", "Địa Chỉ ", "Số Điện Thoại", "Trạng Thái"
             }
         ));
         tb_hd.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -718,31 +718,31 @@ public class HoaDonForm extends javax.swing.JPanel {
         });
     }//GEN-LAST:event_QRActionPerformed
 
-//    private ArrayList<HoaDonResponse> timKiemHoaDon(String resultQR) {
-//        HoaDonRepository hdRepo = new HoaDonRepository();
-//        ArrayList<HoaDonResponse> list = new ArrayList<>();
-//
-//        System.out.println("Chức năng tìm kiếm hóa đơn");
-//
-//        if (resultQR == null || resultQR.trim().isEmpty()) {
-//            System.out.println("Không có mã QR được cung cấp");
-//        } else {
-//            HoaDonResponse hoaDon = hdRepo.timKiemHoaDonResponsebyQR(resultQR.trim());
-//            if (hoaDon != null) {
-//                list.add(hoaDon);
-//                System.out.println("Hóa đơn được tìm thấy: " + hoaDon.getMaHoaDon());
-//            } else {
-//                System.out.println("Không tìm thấy hóa đơn với mã QR: " + resultQR);
-//            }
-//
-//            // Hiển thị dữ liệu trên giao diện
-//            System.out.println(list);
-//            showDataTableV2(list);
-//        }
-//
-//        return list;
-//    }
-//    
+    private ArrayList<HoaDonResponse> timKiemHoaDon(String resultQR) {
+        HoaDonRepository hdRepo = new HoaDonRepository();
+        ArrayList<HoaDonResponse> list = new ArrayList<>();
+
+        System.out.println("Chức năng tìm kiếm hóa đơn");
+
+        if (resultQR == null || resultQR.trim().isEmpty()) {
+            System.out.println("Không có mã QR được cung cấp");
+        } else {
+            HoaDonResponse hoaDon = hdRepo.timKiemHoaDonResponsebyQR(resultQR.trim());
+            if (hoaDon != null) {
+                list.add(hoaDon);
+                System.out.println("Hóa đơn được tìm thấy: " + hoaDon.getMaHoaDon());
+            } else {
+                System.out.println("Không tìm thấy hóa đơn với mã QR: " + resultQR);
+            }
+
+            // Hiển thị dữ liệu trên giao diện
+            System.out.println(list);
+            showDataTableV2(list);
+        }
+
+        return list;
+    }
+    
     private HoaDonResponse getHoaDonResponse(String resultQR) {
         HoaDonRepository hdRepo = new HoaDonRepository();
 

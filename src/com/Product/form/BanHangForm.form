@@ -93,12 +93,12 @@
                   <Component id="buttonBadges1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="buttonBadges2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="364" max="32767" attributes="0"/>
+                  <EmptySpace pref="368" max="32767" attributes="0"/>
                   <Component id="buttonBadges3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane4" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -117,10 +117,10 @@
                   <EmptySpace min="0" pref="170" max="32767" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                      <Component id="jScrollPane4" min="-2" pref="123" max="-2" attributes="0"/>
-                      <EmptySpace pref="37" max="32767" attributes="0"/>
+                      <Component id="jScrollPane4" pref="154" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -329,10 +329,13 @@
                   <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonBadges4ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="com.Product.GUI.textfield.TextField" name="textField2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Kh&#xe1;ch B&#xe1;n Le"/>
+                <Property name="text" type="java.lang.String" value="Kh&#xe1;ch B&#xe1;n L&#x1ebb;"/>
                 <Property name="labelText" type="java.lang.String" value=""/>
               </Properties>
             </Component>

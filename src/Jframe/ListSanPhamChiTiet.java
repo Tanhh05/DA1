@@ -44,18 +44,24 @@ public class ListSanPhamChiTiet extends javax.swing.JFrame {
             dtm = (DefaultTableModel) tbl_SPCT.getModel();
             dtm.setRowCount(0);
             AtomicInteger index = new AtomicInteger(1);
-            list.forEach(s -> dtm.addRow(new Object[]{
-                index.getAndIncrement(), s.getMaSPCT(), s.getTenSP(),
-                s.getThuongHieu(), s.getXuatXu(),
-                s.getMauSac(),
-                s.getKichThuoc(), s.getChatLieu(), s.getCoAo(), s.getDoDay(), s.getPhongCach(),
-                s.getGiaBan(), s.getSoLuong(),
-                s.isTrangThai() ? "Hết Hàng" : "Còn hàng"
-            }));
+
+            list.forEach(s -> {
+                // Định dạng giá bán với ba chữ số thập phân
+                String formattedGiaBan = String.format("%.3f", s.getGiaBan());
+
+                dtm.addRow(new Object[]{
+                    index.getAndIncrement(), s.getMaSPCT(), s.getTenSP(),
+                    s.getThuongHieu(), s.getXuatXu(),
+                    s.getMauSac(),
+                    s.getKichThuoc(), s.getChatLieu(), s.getCoAo(), s.getDoDay(), s.getPhongCach(),
+                    formattedGiaBan + " VND", // Định dạng giá bán với đơn vị VND
+                    s.getSoLuong(),
+                    s.isTrangThai() ? "Hết Hàng" : "Còn hàng"
+                });
+            });
         } else {
             JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin sản phẩm!", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
     /**
@@ -142,7 +148,7 @@ public class ListSanPhamChiTiet extends javax.swing.JFrame {
 
     private void tbl_SPCTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_SPCTMouseClicked
         // TODO add your handling code here:
-         int selectedRowIndex = tbl_SPCT.getSelectedRow();
+        int selectedRowIndex = tbl_SPCT.getSelectedRow();
         if (selectedRowIndex != -1) {
             // Giả sử cột thứ hai trong bảng là mã sản phẩm chi tiết
             maSanPhamChiTiet = (String) tbl_SPCT.getValueAt(selectedRowIndex, 1);
@@ -150,7 +156,7 @@ public class ListSanPhamChiTiet extends javax.swing.JFrame {
 
             if (maSanPhamChiTiet != null && !maSanPhamChiTiet.isEmpty()) {
 
-                ThongTinSPJFrame detailsFrame = new ThongTinSPJFrame();
+                ThongTinSPJFrame1 detailsFrame = new ThongTinSPJFrame1();
                 detailsFrame.setVisible(true);
 
             } else {

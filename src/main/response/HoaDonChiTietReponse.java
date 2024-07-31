@@ -22,17 +22,35 @@ import lombok.ToString;
 @ToString
 @Builder
 public class HoaDonChiTietReponse {
-     private Integer ID;
+     private Integer id;
+
     private String maSPCT;
+
     private String thuongHieu;
+
     private String xuatXu;
+
     private String mauSac;
+    
     private String kichThuoc;
+    
     private String chatLieu;
+    
     private String coAo;
+    
     private String doDay;
+    
     private String phongCach;
+    
     private Double giaBan;
+    
     private Integer soLuong;
+    
     private boolean trangThai;
+    
+    private Double thanhTien;
+    
+    private Integer idHoaDon;
+    
+    private Integer idSpct;
 }

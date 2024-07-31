@@ -46,6 +46,8 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -284,30 +286,56 @@ public class SanPhamForm extends javax.swing.JPanel {
     }
 
     private void showTableSanPhamChiTiet(ArrayList<SanPhamChiTietRespone> lists) {
+        // Xóa các dòng hiện tại trong bảng
         dtmSanPhamChiTiet.setRowCount(0);
+
         AtomicInteger index = new AtomicInteger(1);
         lists.forEach(s -> dtmSanPhamChiTiet.addRow(new Object[]{
             index.getAndIncrement(), s.getMaSPCT(), s.getTenSP(),
             s.getThuongHieu(), s.getXuatXu(),
             s.getMauSac(),
             s.getKichThuoc(), s.getChatLieu(), s.getCoAo(), s.getDoDay(), s.getPhongCach(),
-            s.getGiaBan(), s.getSoLuong(),
-            s.isTrangThai() ? "Hết Hàng" : "Còn hàng"
+            String.format("%,.3f VND", s.getGiaBan()), // Định dạng giá bán với ba chữ số thập phân và thêm " VND"
+            s.getSoLuong(),
+            s.isTrangThai() ? "Còn Hàng" : "Hết Hàng"
         }));
     }
 
     private void showTableSanPhamChiTietByQR(SanPhamChiTietRespone spct) {
-        // Xóa các dòng hiện tại trong bảng
-        DefaultTableModel model = (DefaultTableModel) tbl_San_Pham_Chi_Tiet.getModel();
-        model.setRowCount(0);
+        try {
+            if (spct == null) {
+                throw new NullPointerException("Sản phẩm không tồn tại");
+            }
 
-        // Thêm một dòng mới vào bảng với thông tin chi tiết sản phẩm
-        model.addRow(new Object[]{
-            spct.getID(), spct.getMaSPCT(), spct.getTenSP(), spct.getThuongHieu(), spct.getXuatXu(), spct.getMauSac(), spct.getKichThuoc(), spct.getChatLieu(), spct.getCoAo(), spct.getDoDay(), spct.getPhongCach(),
-            spct.getGiaBan(), spct.getSoLuong(),
-            spct.isTrangThai() ? "Hết Hàng" : "Còn hàng"
+            // Xóa các dòng hiện tại trong bảng
+            DefaultTableModel model = (DefaultTableModel) tbl_San_Pham_Chi_Tiet.getModel();
+            model.setRowCount(0);
 
-        });
+            // Định dạng số tiền với 3 chữ số thập phân
+            double giaBan = spct.getGiaBan();
+            String formattedGiaBan = String.format("%.3f", giaBan);
+
+            // Định dạng lại số tiền để sử dụng dấu phân cách hàng nghìn (nếu cần)
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+            symbols.setGroupingSeparator('.');
+            symbols.setDecimalSeparator(',');
+
+            DecimalFormat decimalFormat = new DecimalFormat("#,##0.000", symbols);
+            formattedGiaBan = decimalFormat.format(Double.parseDouble(formattedGiaBan));
+
+            // Thêm một dòng mới vào bảng với thông tin chi tiết sản phẩm
+            model.addRow(new Object[]{
+                spct.getID(), spct.getMaSPCT(), spct.getTenSP(), spct.getThuongHieu(), spct.getXuatXu(), spct.getMauSac(), spct.getKichThuoc(), spct.getChatLieu(), spct.getCoAo(), spct.getDoDay(), spct.getPhongCach(),
+                formattedGiaBan + " VND", // Định dạng giá bán với đơn vị VND
+                spct.getSoLuong(),
+                spct.isTrangThai() ? "Hết Hàng" : "Còn hàng"
+            });
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(this, "Không có sản phẩm", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        } catch (Exception ex) {
+            // Xử lý các lỗi khác nếu cần
+            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra: " + ex.getMessage(), "Thông báo", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void showTableSanPham(ArrayList<SanPham> lists) {
@@ -630,8 +658,6 @@ public class SanPhamForm extends javax.swing.JPanel {
                 .trangThai(respone.isTrangThai())
                 .build();
     }
-
-
 
     private void detailSanPham(int index) {
         SanPham sp = sanPhamRepository.getAllGiamDan().get(index);
@@ -2397,7 +2423,7 @@ public class SanPhamForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         // Xác định chỉ số dòng được chọn
         int index = tbl_SanPham.getSelectedRow();
-        SanPhamChiTietRespone spctrp ;
+        SanPhamChiTietRespone spctrp;
 
         // Kiểm tra nếu không có dòng nào được chọn
         if (index == -1) {
@@ -2415,7 +2441,6 @@ public class SanPhamForm extends javax.swing.JPanel {
 
 //                ArrayList<SanPhamChiTiet> spct = convertResponeToEntity1(spctrp);
 //              
-
                 // Xóa sản phẩm khỏi cơ sở dữ liệu
                 sanPhamRepository.remove(id_sp);
                 sanPhamChiTietRepository.removeSanPhamChiTiet(id_sp);
