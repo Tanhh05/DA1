@@ -25,6 +25,8 @@ public class ChangePasswordForm extends javax.swing.JFrame {
 
     public ChangePasswordForm() {
         initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setTitle("Đổi Mật Khẩu");
     }
 
     /**

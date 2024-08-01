@@ -135,34 +135,35 @@ public class BanHangForm extends javax.swing.JPanel {
     }
 
     private void calculateChange() {
-        try {
-            // Parse tổng tiền và tiền khách đưa, tiền khách CK
-            String totalAmountStr = txt_tongTien.getText().replace("₫", "").trim().replace(",", "");
-            String amountGivenStr = txt_tienKhachDua.getText().trim().replace(",", "");
-            String amountCKStr = txt_tienKhachCK.getText().trim().replace(",", "");
+    try {
+        // Parse tổng tiền và tiền khách đưa, tiền khách CK
+        String totalAmountStr = txt_tongTien.getText().replace("₫", "").trim().replace(",", "").replace(".", "");
+        String amountGivenStr = txt_tienKhachDua.getText().trim().replace(",", "").replace(".", "");
+        String amountCKStr = txt_tienKhachCK.getText().trim().replace(",", "").replace(".", "");
 
-            // Đảm bảo tổng tiền không bị rỗng
-            if (!totalAmountStr.isEmpty()) {
-                double totalAmount = Double.parseDouble(totalAmountStr);
-                double amountGiven = amountGivenStr.isEmpty() ? 0 : Double.parseDouble(amountGivenStr);
-                double amountCK = amountCKStr.isEmpty() ? 0 : Double.parseDouble(amountCKStr);
+        // Đảm bảo tổng tiền không bị rỗng
+        if (!totalAmountStr.isEmpty()) {
+            double totalAmount = Double.parseDouble(totalAmountStr);
+            double amountGiven = amountGivenStr.isEmpty() ? 0 : Double.parseDouble(amountGivenStr);
+            double amountCK = amountCKStr.isEmpty() ? 0 : Double.parseDouble(amountCKStr);
 
-                // Tổng tiền khách đưa (tiền mặt + CK)
-                double totalGiven = amountGiven + amountCK;
+            // Tổng tiền khách đưa (tiền mặt + CK)
+            double totalGiven = amountGiven + amountCK;
 
-                // Chỉ tính toán khi tổng tiền khách đưa lớn hơn hoặc bằng tổng tiền
-                if (totalGiven >= totalAmount) {
-                    double change = totalGiven - totalAmount;
-                    txt_tienThua.setText(String.format("%,.3f₫", change));
-                } else {
-                    txt_tienThua.setText("0₫");
-                }
+            // Chỉ tính toán khi tổng tiền khách đưa lớn hơn hoặc bằng tổng tiền
+            if (totalGiven >= totalAmount) {
+                double change = totalGiven - totalAmount;
+                txt_tienThua.setText(String.format("%,.0f₫", change));
+            } else {
+                txt_tienThua.setText("0₫");
             }
-        } catch (NumberFormatException e) {
-            // Xử lý khi nhập liệu không hợp lệ
-            txt_tienThua.setText("0₫");
         }
+    } catch (NumberFormatException e) {
+        // Xử lý khi nhập liệu không hợp lệ
+        txt_tienThua.setText("0₫");
     }
+}
+
 
     private int countHoaDon() {
         int count = 0;
@@ -191,9 +192,9 @@ public class BanHangForm extends javax.swing.JPanel {
         tb_hoaDon = new com.Product.GUI.Table();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        btn_chonKH = new com.Product.swing.ButtonBadges();
-        textField2 = new com.Product.GUI.textfield.TextField();
-        textField1 = new com.Product.GUI.textfield.TextField();
+        textField4 = new com.Product.GUI.textfield.TextField();
+        buttonBadges4 = new com.Product.swing.ButtonBadges();
+        cbb_tenKhachHang = new com.Product.GUI.Combobox();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txt_maHoaDon = new com.Product.GUI.textfield.TextField();
@@ -320,46 +321,35 @@ public class BanHangForm extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin khách hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(0, 0, 255))); // NOI18N
 
-        btn_chonKH.setBackground(new java.awt.Color(255, 153, 153));
-        btn_chonKH.setText("Chọn");
-        btn_chonKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_chonKH.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_chonKHActionPerformed(evt);
-            }
-        });
+        textField4.setLabelText("Nhập số điện thoại");
 
-        textField2.setText("Khách Bán Lẻ");
-        textField2.setLabelText("");
-
-        textField1.setText("KH001");
-        textField1.setLabelText("");
+        buttonBadges4.setBackground(new java.awt.Color(255, 204, 204));
+        buttonBadges4.setText("Tìm");
+        buttonBadges4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(textField2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_chonKH, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))
+                        .addComponent(textField4, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonBadges4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbb_tenKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(6, 6, 6))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonBadges4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_chonKH, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(cbb_tenKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -388,6 +378,11 @@ public class BanHangForm extends javax.swing.JPanel {
         buttonBadges5.setBackground(new java.awt.Color(255, 153, 153));
         buttonBadges5.setText("Hủy");
         buttonBadges5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonBadges5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBadges5ActionPerformed(evt);
+            }
+        });
 
         buttonBadges6.setBackground(new java.awt.Color(255, 153, 153));
         buttonBadges6.setText("Thanh Toán");
@@ -517,7 +512,7 @@ public class BanHangForm extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_ngayTT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -554,7 +549,7 @@ public class BanHangForm extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(txt_tienThua, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_tongTien1)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -574,8 +569,8 @@ public class BanHangForm extends javax.swing.JPanel {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -626,9 +621,9 @@ public class BanHangForm extends javax.swing.JPanel {
                 .addComponent(textField3, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addComponent(textField6, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addComponent(textField9, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textField12, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(textField11, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -778,7 +773,7 @@ public class BanHangForm extends javax.swing.JPanel {
         indexHoaDonSelected = tb_hoaDon.getSelectedRow();
         HoaDonResponse1 response1 = hoaDonRepository.getAllByStatus().get(indexHoaDonSelected);
 
-// Định dạng tổng tiền để hiển thị với dấu phân cách hàng nghìn
+        // Định dạng tổng tiền để hiển thị với dấu phân cách hàng nghìn
         String formattedTongTien = String.format("%,.3f₫", response1.getTongTien());
 
         txt_maHoaDon.setText(response1.getMaHoaDon());
@@ -899,30 +894,6 @@ public class BanHangForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonBadges6ActionPerformed
 
-    private void btn_chonKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_chonKHActionPerformed
-        // Tạo và hiển thị cửa sổ thông tin khách hàng
-        ThongTinKhachHangJFrame v = new ThongTinKhachHangJFrame();
-        v.setVisible(true);
-
-        System.out.println("id khách hàng của tôi: "+ id_kh);
-        // Khởi tạo repository
-        ThongTinKhachHangRepository ttkhrp = new ThongTinKhachHangRepository();
-
-        // Kiểm tra giá trị của id_kh trước khi gọi phương thức
-        if (id_kh != null) {
-            KhachHang kh = ttkhrp.getKhachHangById(id_kh);
-            System.out.println("id khách hàng: " + id_kh);  // In ra id để kiểm tra
-
-            if (kh != null) {
-                txt_tenKhachHang.setText(kh.getHoTen());
-            } else {
-                System.out.println("Không tìm thấy khách hàng với id: " + id_kh);
-            }
-        } else {
-            System.out.println("id_kh không hợp lệ (null)");
-        }
-    }//GEN-LAST:event_btn_chonKHActionPerformed
-
     private void buttonBadges3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBadges3ActionPerformed
         // TODO add your handling code here:
         txt_ngayTT.setText("");
@@ -936,6 +907,49 @@ public class BanHangForm extends javax.swing.JPanel {
         txt_tienThua.setText("");
     }//GEN-LAST:event_buttonBadges3ActionPerformed
 
+    private void buttonBadges5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBadges5ActionPerformed
+        // TODO add your handling code here:
+        // Lấy đối tượng hóa đơn tại chỉ số được chọn
+        HoaDonResponse1 hd = hoaDonRepository.getAllByStatus().get(indexHoaDonSelected);
+        // Xác thực rằng đối tượng hóa đơn không null và có thông tin cần thiết
+        if (hd != null && hd.getId() != null) {
+            int option = JOptionPane.showConfirmDialog(
+                    null,
+                    "Bạn có chắc chắn muốn hủy hóa đơn này không?",
+                    "Xác nhận hủy",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+
+            // Kiểm tra sự lựa chọn của người dùng
+            if (option == JOptionPane.YES_OPTION) {
+                boolean isCancelled = hoaDonRepository.huyHoaDon(hd);  // Gọi phương thức hủy hóa đơn
+
+                // Kiểm tra xem việc hủy hóa đơn có thành công hay không
+                if (isCancelled) {
+                    // Cập nhật lại bảng hiển thị hóa đơn
+                    showTableHoaDon(hoaDonRepository.getAllByStatus());
+                    txt_ngayTT.setText("");
+                    txt_tenKhachHang.setText("");
+                    txt_maHoaDon.setText("");
+                    txt_tongTien.setText("");
+                    txt_tongTien1.setText("");
+                    txt_maNhanVien.setText("");
+                    txt_tienKhachDua.setText("");
+                    txt_tienKhachCK.setText("");
+                    txt_tienThua.setText("");
+                    JOptionPane.showMessageDialog(null, "Hóa đơn đã được hủy thành công.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Không thể hủy hóa đơn. Vui lòng thử lại.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Hủy hóa đơn đã bị hủy bỏ.", "Cancelled", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Hóa đơn không hợp lệ hoặc không được chọn.", "Invalid Selection", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_buttonBadges5ActionPerformed
+
     private Double showTotalMoney(ArrayList<HoaDonChiTietReponse> lists) {
         double sum = 0;
         for (HoaDonChiTietReponse hdct : lists) {
@@ -946,13 +960,14 @@ public class BanHangForm extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.Product.swing.ButtonBadges btn_chonKH;
     private com.Product.swing.ButtonBadges buttonBadges1;
     private com.Product.swing.ButtonBadges buttonBadges2;
     private com.Product.swing.ButtonBadges buttonBadges3;
+    private com.Product.swing.ButtonBadges buttonBadges4;
     private com.Product.swing.ButtonBadges buttonBadges5;
     private com.Product.swing.ButtonBadges buttonBadges6;
     private com.Product.GUI.Combobox cbb_httt;
+    private com.Product.GUI.Combobox cbb_tenKhachHang;
     private com.Product.GUI.Combobox cbo_PhieuGiamGia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -978,11 +993,10 @@ public class BanHangForm extends javax.swing.JPanel {
     private com.Product.GUI.Table tb_SP;
     private com.Product.GUI.Table tb_hoaDon;
     private com.Product.GUI.Table tb_hoaDonChiTiet;
-    private com.Product.GUI.textfield.TextField textField1;
     private com.Product.GUI.textfield.TextField textField11;
     private com.Product.GUI.textfield.TextField textField12;
-    private com.Product.GUI.textfield.TextField textField2;
     private com.Product.GUI.textfield.TextField textField3;
+    private com.Product.GUI.textfield.TextField textField4;
     private com.Product.GUI.textfield.TextField textField6;
     private com.Product.GUI.textfield.TextField textField9;
     private com.Product.GUI.textfield.TextField txt_maHoaDon;

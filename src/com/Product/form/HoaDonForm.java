@@ -59,7 +59,10 @@ import java.awt.event.WindowAdapter;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.stream.Stream;
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -112,37 +115,58 @@ public class HoaDonForm extends javax.swing.JPanel {
         resultQR = ketqua;
         System.out.println("ma hoa don tai jframe hoa don " + resultQR);
     }
-
+    
     private void showDataTable(ArrayList<HoaDonResponse> lists) {
         dtm.setRowCount(0);
-        AtomicInteger index = new AtomicInteger(1); // Khoi tao 1 gia tri bat dau bang 1 de tu dong tang
-        // for..each + lamda 
+        AtomicInteger index = new AtomicInteger(1); // Khởi tạo giá trị bắt đầu từ 1 để tự động tăng
+        // for..each + lambda
         lists.forEach(s -> dtm.addRow(new Object[]{
-            index.getAndIncrement(), s.getMaHoaDon(), s.getNgayTao(), s.getNgayCapNhap(), s.getTongTien(), s.getMaNhanVien(),
-            s.getHoTen(), s.getDiaChi(), s.getSDT(), s.getTrangThai() == 0 ? "Chưa thanh toán":"Đã Thanh Toán"  
+            index.getAndIncrement(),
+            s.getMaHoaDon(),
+            s.getNgayTao(),
+            s.getNgayCapNhap(),
+            String.format("%,.3f₫", s.getTongTien()), // Định dạng tổng tiền
+            s.getMaNhanVien(),
+            s.getHoTen(),
+            s.getDiaChi(),
+            s.getSDT(),
+            s.getTrangThai() == 0 ? "Chưa thanh toán"
+            : s.getTrangThai() == 1 ? "Đã Thanh Toán" : "Hủy đơn hàng",
+            s.getHinhThucTT()== 0 ? "CK":"TM"
+                
         }));
     }
 
     private void showTableHoaDonChiTiet(ArrayList<HoaDonChiTietReponse> lists) {
         DefaultTableModel model = (DefaultTableModel) tb_hdct.getModel();
-        model.setRowCount(0);// quet lai phat
+        model.setRowCount(0); // Xóa dữ liệu cũ
         AtomicInteger index = new AtomicInteger(1);
         lists.forEach(s -> model.addRow(new Object[]{
-            index.getAndIncrement(), s.getMaSPCT(),
-            s.getThuongHieu(), s.getXuatXu(),
+            index.getAndIncrement(),
+            s.getMaSPCT(),
+            s.getThuongHieu(),
+            s.getXuatXu(),
             s.getMauSac(),
-            s.getKichThuoc(), s.getChatLieu(), s.getCoAo(), s.getDoDay(), s.getPhongCach(),
-            s.getGiaBan(), s.getSoLuong(),
+            s.getKichThuoc(),
+            s.getChatLieu(),
+            s.getCoAo(),
+            s.getDoDay(),
+            s.getPhongCach(),
+            String.format("%,.3f₫", s.getGiaBan()), // Định dạng giá bán
+            s.getSoLuong(),
             s.isTrangThai() ? "Còn hàng" : "Hết hàng"
         }));
     }
+
 
     private void showTableLichSuHoaDon(ArrayList<LichSuHoaDonResponse> lists) {
         DefaultTableModel model = (DefaultTableModel) tb_lshd.getModel();
         model.setRowCount(0);
         AtomicInteger index = new AtomicInteger(1);
         lists.forEach(s -> model.addRow(new Object[]{
-            index.getAndIncrement(), s.getMaNV(), s.getNgayCapNhap(), s.getTrangThai() == 0 ? "Chưa thanh toán":"Đã Thanh Toán" 
+            index.getAndIncrement(), s.getMaNV(), s.getNgayCapNhap(),
+            s.getTrangThai() == 0 ? "Chưa thanh toán"
+            : s.getTrangThai() == 1 ? "Đã Thanh Toán" : "Hủy đơn hàng"
         }));
     }
 
@@ -322,7 +346,7 @@ public class HoaDonForm extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Tìm kiếm ");
 
-        txtSearch1.setLabelText("Ma Hoa Don - Ma Nhan Vien - SDT - Ðia Chi");
+        txtSearch1.setLabelText("Ma Hoa Don - Ma Nhan Vien - SDT");
         txtSearch1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearch1ActionPerformed(evt);
@@ -645,8 +669,8 @@ public class HoaDonForm extends javax.swing.JPanel {
                 row.createCell(6).setCellValue(hoaDon.getHoTen()); // Tên Khách Hàng
                 row.createCell(7).setCellValue(hoaDon.getDiaChi()); // Địa Chỉ
                 row.createCell(8).setCellValue(hoaDon.getSDT()); // Số Điện Thoại
-                row.createCell(9).setCellValue(hoaDon.getTrangThai() == 0 ? "Đã Thanh Toán" : "Chưa Thanh Toán"); // Trạng Thái
-                row.createCell(10).setCellValue(hoaDon.getHinhThucTT() == 0 ? "Tiền Mặt" : "Chuyển Khoản"); // Hình Thức Thanh Toán
+                row.createCell(9).setCellValue(hoaDon.getTrangThai() == 0 ? "Chưa Thanh Toán" : "Đã Thanh Toán"); // Trạng Thái
+                row.createCell(10).setCellValue(hoaDon.getHinhThucTT() == 0 ? "Chuyển Khoản" : "Tiền Mặt"); // Hình Thức Thanh Toán
 
                 // Cài đặt kiểu chữ cho dữ liệu
                 for (int j = 0; j < headers.length; j++) {
@@ -791,23 +815,12 @@ public class HoaDonForm extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        try {
-            // Get trangThai
-            Integer trangThai = cbox_hoaDon.getSelectedIndex();
-            if (trangThai == 3) { // Assuming "Tất cả" is the first item
-                trangThai = null;
-            }
-
-            // Get httt
-            Integer httt = cb_httt.getSelectedIndex();
-            if (httt == 3) { // Assuming "Tất cả" is the first item for httt
-                httt = null;
-            }
-
+     try {
             // Get giaMin
             Double giaMin = null;
             String giaMinText = txt_timTheoGia.getText().trim();
             if (!giaMinText.isEmpty()) {
+                giaMinText = giaMinText.replace("₫", "").replace(",", "").trim(); // Loại bỏ ký tự "₫" và dấu phân cách
                 giaMin = Double.parseDouble(giaMinText);
             }
 
@@ -815,11 +828,12 @@ public class HoaDonForm extends javax.swing.JPanel {
             Double giaMax = null;
             String giaMaxText = txt_timTheoGiaMax.getText().trim();
             if (!giaMaxText.isEmpty()) {
+                giaMaxText = giaMaxText.replace("₫", "").replace(",", "").trim(); // Loại bỏ ký tự "₫" và dấu phân cách
                 giaMax = Double.parseDouble(giaMaxText);
             }
 
             // Call the search method with the updated inputs
-            showDataTable(hdRepo.search(trangThai, httt, giaMin, giaMax));
+            showDataTable(hdRepo.timKiemTheoGia(giaMin, giaMax));
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập số hợp lệ cho phạm vi giá.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
@@ -839,7 +853,7 @@ public class HoaDonForm extends javax.swing.JPanel {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        showDataTable(hdRepo.searchh(txtSearch1.getText()));
+        showDataTable(hdRepo.search(txtSearch1.getText()));
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -977,16 +991,7 @@ public class HoaDonForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void cb_htttActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_htttActionPerformed
-//        try {
-//            // Get selected trangThai from combobox
-//            Integer httt = cb_httt.getSelectedIndex();
-//
-//            // Call the search method with trangThai
-//            showDataTable(hdRepo.hinhThucThanhToan(httt));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi tìm kiếm. Vui lòng thử lại.", "Error", JOptionPane.ERROR_MESSAGE);
-//        }       
+        
     }//GEN-LAST:event_cb_htttActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

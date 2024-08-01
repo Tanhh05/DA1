@@ -699,6 +699,7 @@ public class KhachHangForm extends javax.swing.JPanel {
 
     private void cbGioiTinh2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbGioiTinh2ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_cbGioiTinh2ActionPerformed
 
     private void btnSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch1ActionPerformed

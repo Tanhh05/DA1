@@ -4,12 +4,11 @@
  */
 package com.Product.form;
 
-
+import javax.swing.JOptionPane;
 import main.dao.NhanVienDao;
 import main.entity.NhanVienConnect;
 import main.util.Session;
 import main.util.XEmail;
-
 
 /**
  *
@@ -23,8 +22,11 @@ public class ForgetPasswordForm extends javax.swing.JFrame {
     private Session ss = Session.getInstance();
     private NhanVienDao dao = new NhanVienDao();
     private XEmail email = new XEmail();
+
     public ForgetPasswordForm() {
         initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setTitle("Quên Mật Khẩu");
     }
 
     /**
@@ -95,8 +97,17 @@ public class ForgetPasswordForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
-        // TODO add your handling code here:
-         String content = txtEmailOrPhone.getText();
+        // Lấy nội dung từ txtEmailOrPhone
+        String content = txtEmailOrPhone.getText();
+
+        // Kiểm tra xem nội dung có trống hay không
+        if (content.isEmpty()) {
+            // Hiển thị thông báo cho người dùng
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập email hoặc số điện thoại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return; // Dừng thực hiện phương thức nếu trường trống
+        }
+
+        // Tiếp tục với các hành động khác nếu nội dung không trống
         NhanVienConnect nv = dao.select_byEmail(content);
         email.sendEmail(nv.getEmail(), "abc");
         ss.set("content", "abc");

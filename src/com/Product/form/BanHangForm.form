@@ -258,8 +258,8 @@
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jPanel3" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -294,15 +294,14 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="textField2" min="-2" pref="199" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btn_chonKH" pref="77" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="textField4" min="-2" pref="183" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="buttonBadges4" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="textField1" min="-2" pref="199" max="-2" attributes="0"/>
+                              <Component id="cbb_tenKhachHang" min="-2" pref="241" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -312,44 +311,35 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="btn_chonKH" min="-2" pref="46" max="-2" attributes="0"/>
-                          <Component id="textField2" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="textField4" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonBadges4" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="textField1" min="-2" pref="40" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                      <Component id="cbb_tenKhachHang" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="com.Product.swing.ButtonBadges" name="btn_chonKH">
+            <Component class="com.Product.GUI.textfield.TextField" name="textField4">
+              <Properties>
+                <Property name="labelText" type="java.lang.String" value="Nh&#x1ead;p s&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i"/>
+              </Properties>
+            </Component>
+            <Component class="com.Product.swing.ButtonBadges" name="buttonBadges4">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="ff" type="rgb"/>
+                  <Color blue="cc" green="cc" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Ch&#x1ecd;n"/>
+                <Property name="text" type="java.lang.String" value="T&#xec;m"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_chonKHActionPerformed"/>
-              </Events>
             </Component>
-            <Component class="com.Product.GUI.textfield.TextField" name="textField2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Kh&#xe1;ch B&#xe1;n L&#x1ebb;"/>
-                <Property name="labelText" type="java.lang.String" value=""/>
-              </Properties>
-            </Component>
-            <Component class="com.Product.GUI.textfield.TextField" name="textField1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="KH001"/>
-                <Property name="labelText" type="java.lang.String" value=""/>
-              </Properties>
+            <Component class="com.Product.GUI.Combobox" name="cbb_tenKhachHang">
             </Component>
           </SubComponents>
         </Container>
@@ -458,7 +448,7 @@
                           <Component id="txt_ngayTT" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
@@ -506,7 +496,7 @@
                           <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txt_tienThua" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txt_tongTien1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
@@ -580,6 +570,9 @@
                   <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonBadges5ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="com.Product.swing.ButtonBadges" name="buttonBadges6">
               <Properties>
@@ -737,9 +730,9 @@
                   <Component id="textField3" min="-2" pref="190" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                   <Component id="textField6" min="-2" pref="95" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   <Component id="textField9" min="-2" pref="95" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="textField12" min="-2" pref="94" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="textField11" min="-2" pref="96" max="-2" attributes="0"/>

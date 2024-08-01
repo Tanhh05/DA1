@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 public class DBConnect {
     public static final String HOSTNAME = "localhost";
     public static final String PORT = "1433";
-    public static final String DBNAME = "Du_An_1_Nhom_3_9";
+    public static final String DBNAME = "Du_An_1_Nhom_3_12";
     public static final String USERNAME = "sa";
     public static final String PASSWORD = "123456";
 
@@ -46,7 +46,7 @@ public class DBConnect {
     }
     
     static String Driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    static String url = "jdbc:sqlserver://localhost:1433;databaseName=Du_An_1_Nhom_3_9;encrypt=true;trustServerCertificate=true";
+    static String url = "jdbc:sqlserver://localhost:1433;databaseName=Du_An_1_Nhom_3_12;encrypt=true;trustServerCertificate=true";
     static String user = "sa";
     static String pass = "123456";
 

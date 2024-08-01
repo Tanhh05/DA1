@@ -77,6 +77,7 @@ public class Main extends javax.swing.JFrame {
 
                     // Xử lý phản hồi từ hộp thoại xác nhận
                     if (response == JOptionPane.YES_OPTION) {
+                       
                         Login v = new Login();
                         v.setVisible(true);
                         // Thực hiện hành động khi người dùng chọn Yes

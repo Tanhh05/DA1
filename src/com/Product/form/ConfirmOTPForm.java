@@ -17,8 +17,11 @@ public class ConfirmOTPForm extends javax.swing.JFrame {
      * Creates new form ConfirmOTPForm
      */
     private Session ss = Session.getInstance();
+
     public ConfirmOTPForm() {
         initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setTitle("Xác Nhận Mật Khẩu");
 //        System.out.println(ss.get("content"));
 //        txtOTP.setText((String) ss.get("content"));
     }
@@ -92,14 +95,23 @@ public class ConfirmOTPForm extends javax.swing.JFrame {
 
     private void btnConfirmOtpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmOtpActionPerformed
         // TODO add your handling code here:
-         String otpSS = (String) ss.get("content");
+        // Lấy nội dung từ txtOTP
         String inputOtp = txtOTP.getText();
-        if(inputOtp.equalsIgnoreCase(otpSS)){
+
+        // Kiểm tra xem nội dung có trống hay không
+        if (inputOtp.isEmpty()) {
+            // Hiển thị thông báo cho người dùng
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã xác thực.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return; // Dừng thực hiện phương thức nếu trường trống
+        }
+
+        // Tiếp tục với các hành động khác nếu nội dung không trống
+        String otpSS = (String) ss.get("content");
+        if (inputOtp.equalsIgnoreCase(otpSS)) {
             ChangePasswordForm f = new ChangePasswordForm();
             f.setVisible(true);
             this.dispose();
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(this, "Sai mã xác thực");
         }
     }//GEN-LAST:event_btnConfirmOtpActionPerformed
